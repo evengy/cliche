@@ -15,6 +15,20 @@ public class ProtagonistMoveController : MonoBehaviour
         state = ProtagonistState.Idle;
     }
 
+    void Use()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            state = ProtagonistState.Use;
+        }
+    }
+    void GetScared()
+    {
+        if (Input.GetKey(KeyCode.S))
+        {
+            state = ProtagonistState.Scared;
+        }
+    }
     void Move()
     {
         if (Input.GetKey(KeyCode.UpArrow))
@@ -40,11 +54,6 @@ public class ProtagonistMoveController : MonoBehaviour
             state = ProtagonistState.Move;
             this.transform.Rotate(Vector3.up, 1 * movementSpeed);
         }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            state = ProtagonistState.Scared;
-        }
     }
 
     void Animate()
@@ -53,18 +62,28 @@ public class ProtagonistMoveController : MonoBehaviour
         {
             animator.ResetTrigger("Move");
             animator.ResetTrigger("Scared");
+            animator.ResetTrigger("Use");
             animator.SetTrigger("Idle");
         }
         if (state.Equals(ProtagonistState.Move))
         {
             animator.ResetTrigger("Idle");
             animator.ResetTrigger("Scared");
+            animator.ResetTrigger("Use");
             animator.SetTrigger("Move");
+        }
+        if (state.Equals(ProtagonistState.Use))
+        {
+            animator.ResetTrigger("Idle");
+            animator.ResetTrigger("Scared");
+            animator.ResetTrigger("Move");
+            animator.SetTrigger("Use");
         }
         if (state.Equals(ProtagonistState.Scared))
         {
             animator.ResetTrigger("Idle");
             animator.ResetTrigger("Move");
+            animator.ResetTrigger("Use");
             animator.SetTrigger("Scared");
         }
     }
@@ -73,6 +92,8 @@ public class ProtagonistMoveController : MonoBehaviour
     void Update()
     {
         Move();
+        Use();
+        GetScared();
         Animate();
         state = ProtagonistState.Idle;
     }
