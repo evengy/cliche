@@ -27,7 +27,6 @@ public class DoorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"{transform.rotation}");
 
         if (door.Equals(DoorPosition.Left))
         {

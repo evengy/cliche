@@ -32,13 +32,13 @@ public class ProtagonistMoveController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             state = ProtagonistState.Move;
-            this.transform.Rotate(Vector3.up, -1);
+            this.transform.Rotate(Vector3.up, -1 * movementSpeed);
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
             state = ProtagonistState.Move;
-            this.transform.Rotate(Vector3.up, 1);
+            this.transform.Rotate(Vector3.up, 1 * movementSpeed);
         }
 
         if (Input.GetKey(KeyCode.S))

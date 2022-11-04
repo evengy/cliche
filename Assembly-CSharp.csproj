@@ -58,9 +58,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistMoveController.cs" />
     <Compile Include="Assets\Scripts\Textures\TextureMap.cs" />
-    <Compile Include="Assets\Scripts\Protagonist\ProtagonistState.cs" />
     <Compile Include="Assets\Scripts\Wardrobe\DoorController.cs" />
     <Compile Include="Assets\Scripts\Wardrobe\DoorPosition.cs" />
+    <Compile Include="Assets\Scripts\Protagonist\ProtagonistState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -812,6 +812,12 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
