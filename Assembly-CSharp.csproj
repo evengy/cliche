@@ -57,16 +57,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Drawer\DrawerController.cs" />
-    <Compile Include="Assets\Scripts\Protagonist\ProtagonistMoveController.cs" />
+    <Compile Include="Assets\Scripts\Protagonist\ProtagonistController.cs" />
     <Compile Include="Assets\Scripts\House\WallSpawner.cs" />
     <Compile Include="Assets\Scripts\Shaders\HauntedWallsShader.cs" />
     <Compile Include="Assets\Scripts\TV\ScreenController.cs" />
+    <Compile Include="Assets\Scripts\Drawer\DrawerState.cs" />
     <Compile Include="Assets\Scripts\TV\TVState.cs" />
     <Compile Include="Assets\Scripts\Textures\TextureMap.cs" />
     <Compile Include="Assets\Scripts\Wardrobe\DoorController.cs" />
     <Compile Include="Assets\Scripts\Wardrobe\DoorPosition.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistState.cs" />
-    <Compile Include="Assets\Scripts\Drawer\DrawerState.cs" />
+    <Compile Include="Assets\Scripts\Protagonist\ProtagonistInteractions.cs" />
+    <Compile Include="Assets\Scripts\TV\TVSwitchController.cs" />
+    <Compile Include="Assets\Scripts\Interactions\PickableObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

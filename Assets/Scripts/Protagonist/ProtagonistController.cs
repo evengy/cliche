@@ -1,12 +1,14 @@
+using Assets.Scripts.Interactions;
 using Assets.Scripts.Protagonist;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProtagonistMoveController : MonoBehaviour
+public class ProtagonistController : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 2f;
     Animator animator;
+    [SerializeField] GameObject handler;
     ProtagonistState state;
     // Start is called before the first frame update
     void Start()
@@ -19,6 +21,12 @@ public class ProtagonistMoveController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            if (GetComponent<ProtagonistInteractions>().Interactive)
+            {
+                var pick = GetComponent<ProtagonistInteractions>().Pick;
+                pick.Reassign(handler);
+
+            }
             state = ProtagonistState.Use;
         }
     }
@@ -29,6 +37,7 @@ public class ProtagonistMoveController : MonoBehaviour
             state = ProtagonistState.Scared;
         }
     }
+
     void Move()
     {
         if (Input.GetKey(KeyCode.UpArrow))
@@ -91,8 +100,8 @@ public class ProtagonistMoveController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
         Use();
+        Move();
         GetScared();
         Animate();
         state = ProtagonistState.Idle;

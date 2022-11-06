@@ -9,7 +9,7 @@ public class DrawerController : MonoBehaviour
     [SerializeField] GameObject shelfA;
     [SerializeField] GameObject shelfB;
     [SerializeField] GameObject shelfC;
-    [SerializeField] float movementSpeed = 0.1f;
+    [SerializeField] float movementSpeed = 2f;
     [SerializeField] float shelfSize= 0.8f;
 
     DrawerState state;
@@ -20,13 +20,14 @@ public class DrawerController : MonoBehaviour
 
     }
 
+    // TODO rework logic (tv switch should follow the spawn coordinates instead of being moved by colliders)
     void OpenShelf(GameObject shelf)
     {
         var current = shelf.transform.localPosition;
         var towards = new Vector3(current.x, current.y, current.z - shelfSize);
         if (current.z > -shelfSize)
         {
-            shelf.transform.localPosition = Vector3.MoveTowards(current, towards, movementSpeed);
+            shelf.transform.localPosition = Vector3.MoveTowards(current, towards, Time.deltaTime * movementSpeed);
         }
     }
 
@@ -36,7 +37,7 @@ public class DrawerController : MonoBehaviour
         var towards = new Vector3(current.x, current.y, 0);
         if (current.z <= 0)
         {
-            shelf.transform.localPosition = Vector3.MoveTowards(current, towards, movementSpeed);
+            shelf.transform.localPosition = Vector3.MoveTowards(current, towards, Time.deltaTime * movementSpeed);
         }
     }
 
