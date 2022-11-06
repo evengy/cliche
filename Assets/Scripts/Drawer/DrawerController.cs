@@ -1,3 +1,4 @@
+using Assets.Scripts.Drawer;
 using Assets.Scripts.Protagonist;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,39 +9,84 @@ public class DrawerController : MonoBehaviour
     [SerializeField] GameObject shelfA;
     [SerializeField] GameObject shelfB;
     [SerializeField] GameObject shelfC;
-    [SerializeField] float movementSpeed = 0.5f;
+    [SerializeField] float movementSpeed = 0.1f;
+    [SerializeField] float shelfSize= 0.8f;
+
+    DrawerState state;
     // Start is called before the first frame update
     void Start()
     {
-        
+        state = DrawerState.Closed;
+
     }
 
-    void MoveShelf()
+    void OpenShelf(GameObject shelf)
     {
-        if (Input.GetKey(KeyCode.A))
+        var current = shelf.transform.localPosition;
+        var towards = new Vector3(current.x, current.y, current.z - shelfSize);
+        if (current.z > -shelfSize)
         {
-            shelfA.transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
+            shelf.transform.localPosition = Vector3.MoveTowards(current, towards, movementSpeed);
         }
-        if (Input.GetKey(KeyCode.B))
-        {
-            shelfB.transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
-        }
-        if (Input.GetKey(KeyCode.C))
-        {
-            shelfC.transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
-        }
-        if (Input.GetKey(KeyCode.X))
-        {
-            shelfA.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
-            shelfB.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
-            shelfC.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
+    }
 
+    void CloseShelf(GameObject shelf)
+    {
+        var current = shelf.transform.localPosition;
+        var towards = new Vector3(current.x, current.y, 0);
+        if (current.z <= 0)
+        {
+            shelf.transform.localPosition = Vector3.MoveTowards(current, towards, movementSpeed);
+        }
+    }
+
+    void UpdateState()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            state = DrawerState.ShelfA;
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            state = DrawerState.ShelfB;
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            state = DrawerState.ShelfC;
+        }
+    }
+
+    void UpdateShelvesPositions()
+    {
+        if (state.Equals(DrawerState.ShelfA))
+        {
+            CloseShelf(shelfB);
+            CloseShelf(shelfC);
+
+            OpenShelf(shelfA);
+        }
+
+        if (state.Equals(DrawerState.ShelfB))
+        {
+            CloseShelf(shelfA);
+            CloseShelf(shelfC);
+
+            OpenShelf(shelfB);
+        }
+
+        if (state.Equals(DrawerState.ShelfC))
+        {
+            CloseShelf(shelfA);
+            CloseShelf(shelfB);
+
+            OpenShelf(shelfC);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveShelf();
+        UpdateState();
+        UpdateShelvesPositions();
     }
 }
