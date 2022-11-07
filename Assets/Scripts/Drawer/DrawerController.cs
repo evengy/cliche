@@ -20,7 +20,6 @@ public class DrawerController : MonoBehaviour
 
     }
 
-    // TODO rework logic (tv switch should follow the spawn coordinates instead of being moved by colliders)
     void OpenShelf(GameObject shelf)
     {
         var current = shelf.transform.localPosition;

@@ -1,4 +1,4 @@
-using Assets.Scripts.Interactions;
+using Assets.Scripts.Interactive;
 using Assets.Scripts.Protagonist;
 using System.Collections;
 using System.Collections.Generic;

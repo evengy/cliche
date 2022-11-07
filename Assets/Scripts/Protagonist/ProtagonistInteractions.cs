@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Interactions;
+﻿using Assets.Scripts.Interactive;
 using System.Collections;
 using UnityEngine;
 

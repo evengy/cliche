@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Interactions
+namespace Assets.Scripts.Interactive
 {
     public class PickableObject : MonoBehaviour
     {

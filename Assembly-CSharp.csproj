@@ -69,7 +69,8 @@
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistState.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistInteractions.cs" />
     <Compile Include="Assets\Scripts\TV\TVSwitchController.cs" />
-    <Compile Include="Assets\Scripts\Interactions\PickableObject.cs" />
+    <Compile Include="Assets\Scripts\Interactive\PickableObject.cs" />
+    <Compile Include="Assets\Scripts\Interactive\InteractiveUIRotationController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
