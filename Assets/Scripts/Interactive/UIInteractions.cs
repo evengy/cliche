@@ -2,12 +2,11 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Protagonist
+namespace Assets.Scripts.Interactive
 {
-    public class ProtagonistInteractions : MonoBehaviour
+    public class UIInteractions : MonoBehaviour
     {
-        public PickableObject Pick => pick;
-        private PickableObject pick;
+        [SerializeField] GameObject UI;
         private bool isInteractive;
         public bool IsInteractive => isInteractive;
         // Use this for initialization
@@ -19,22 +18,28 @@ namespace Assets.Scripts.Protagonist
         // Update is called once per frame
         void Update()
         {
-
+            if (isInteractive)
+            {
+                UI.SetActive(true);
+            }
+            else
+            {
+                UI.SetActive(false);
+            }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag.Equals("PickableObject"))
+            if (other.tag.Equals("Protagonist"))
             {
-                Debug.Log("PickableObject in reach");
+                Debug.Log($"Protagonist can Interact with {this.gameObject.name}");
             }
         }
         private void OnTriggerStay(Collider other)
         {
-            if (other.tag.Equals("PickableObject"))
+            if (other.tag.Equals("Protagonist"))
             {
                 isInteractive = true;
-                pick = other.gameObject.GetComponent<PickableObject>();
             }
         }
 

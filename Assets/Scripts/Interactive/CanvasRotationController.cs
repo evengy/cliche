@@ -2,14 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractiveUIRotationController : MonoBehaviour
+public class CanvasRotationController : MonoBehaviour
 {
-    Camera camera;
-    Transform current;
     void Start()
     {
-        camera = Camera.main;
-        current = transform;
     }
 
     // Update is called once per frame

@@ -2,39 +2,31 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Protagonist
+namespace Assets.Scripts.TV
 {
-    public class ProtagonistInteractions : MonoBehaviour
+    public class TVInteractions : MonoBehaviour
     {
-        public PickableObject Pick => pick;
-        private PickableObject pick;
+        
         private bool isInteractive;
         public bool IsInteractive => isInteractive;
+
         // Use this for initialization
         void Start()
         {
             isInteractive = false;
         }
-
+         
         // Update is called once per frame
         void Update()
         {
 
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.tag.Equals("PickableObject"))
-            {
-                Debug.Log("PickableObject in reach");
-            }
-        }
         private void OnTriggerStay(Collider other)
         {
-            if (other.tag.Equals("PickableObject"))
+            if (other.tag.Equals("Protagonist"))
             {
-                isInteractive = true;
-                pick = other.gameObject.GetComponent<PickableObject>();
+                isInteractive = other.gameObject.GetComponent<ProtagonistController>().TVSwitchFound;
             }
         }
 

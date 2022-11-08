@@ -1,7 +1,5 @@
 using Assets.Scripts.Drawer;
-using Assets.Scripts.Protagonist;
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.Interactive;
 using UnityEngine;
 
 public class DrawerController : MonoBehaviour
@@ -9,6 +7,7 @@ public class DrawerController : MonoBehaviour
     [SerializeField] GameObject shelfA;
     [SerializeField] GameObject shelfB;
     [SerializeField] GameObject shelfC;
+
     [SerializeField] float movementSpeed = 2f;
     [SerializeField] float shelfSize= 0.8f;
 
@@ -17,7 +16,6 @@ public class DrawerController : MonoBehaviour
     void Start()
     {
         state = DrawerState.Closed;
-
     }
 
     void OpenShelf(GameObject shelf)
@@ -27,6 +25,15 @@ public class DrawerController : MonoBehaviour
         if (current.z > -shelfSize)
         {
             shelf.transform.localPosition = Vector3.MoveTowards(current, towards, Time.deltaTime * movementSpeed);
+        }
+        var pin = shelf.GetComponentInChildren<Pin>();
+        if (pin != null)
+        {
+            if (!pin.Opened)
+            {
+                Debug.Log($"{pin.name} Opened");
+            }
+            pin.Opened = true;
         }
     }
 
@@ -42,17 +49,20 @@ public class DrawerController : MonoBehaviour
 
     void UpdateState()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (GetComponent<UIInteractions>().IsInteractive)
         {
-            state = DrawerState.ShelfA;
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            state = DrawerState.ShelfB;
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            state = DrawerState.ShelfC;
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                state = DrawerState.ShelfA;
+            }
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                state = DrawerState.ShelfB;
+            }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                state = DrawerState.ShelfC;
+            }
         }
     }
 

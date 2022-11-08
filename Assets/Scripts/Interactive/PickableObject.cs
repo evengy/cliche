@@ -5,27 +5,25 @@ namespace Assets.Scripts.Interactive
 {
     public class PickableObject : MonoBehaviour
     {
-        [SerializeField] GameObject assign;
-        // Use this for initialization
+        GameObject pin;
         void Start()
         {
         }
 
-        public void Reassign(GameObject assign)
+        public void Reassign(GameObject newPin)
         {
-            this.assign = assign.gameObject;
+            this.pin = newPin.gameObject;
         }
 
         void Foo()
         {
-            if (Vector3.Distance(this.transform.position, assign.transform.position) > 0.001f)
+            if (Vector3.Distance(this.transform.position, pin.transform.position) > 0.001f)
             {
-                this.transform.position = assign.transform.position;
+                this.transform.position = pin.transform.position;
             }
-            this.transform.rotation = assign.transform.rotation;
+            this.transform.rotation = pin.transform.rotation;
         }
 
-        // Update is called once per frame
         void Update()
         {
             Foo();

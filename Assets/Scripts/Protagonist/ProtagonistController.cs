@@ -10,9 +10,13 @@ public class ProtagonistController : MonoBehaviour
     Animator animator;
     [SerializeField] GameObject handler;
     ProtagonistState state;
+    private bool tVSwitchFound;
+    public bool TVSwitchFound => tVSwitchFound;
+    ProtagonistInteractions interactions;
     // Start is called before the first frame update
     void Start()
     {
+        interactions = GetComponent<ProtagonistInteractions>();
         animator = gameObject.GetComponentInChildren<Animator>(); // TODO refactor
         state = ProtagonistState.Idle;
     }
@@ -21,11 +25,14 @@ public class ProtagonistController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (GetComponent<ProtagonistInteractions>().Interactive)
+            if (interactions.IsInteractive)
             {
-                var pick = GetComponent<ProtagonistInteractions>().Pick;
-                pick.Reassign(handler);
-
+                var pick = interactions.Pick;
+                if (pick != null)
+                {
+                    pick.Reassign(handler);
+                    tVSwitchFound = true;
+                }
             }
             state = ProtagonistState.Use;
         }
@@ -102,7 +109,7 @@ public class ProtagonistController : MonoBehaviour
     {
         Use();
         Move();
-        GetScared();
+        //GetScared();
         Animate();
         state = ProtagonistState.Idle;
     }
