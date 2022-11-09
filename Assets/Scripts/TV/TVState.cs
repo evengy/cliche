@@ -5,5 +5,8 @@ using UnityEngine;
 public enum TVState
 {
     On,
+    Idle,
+    Awake,
+    Haunted,
     Off
 }
