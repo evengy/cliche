@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\TV\TVSwitchController.cs" />
     <Compile Include="Assets\Scripts\Game\GameState.cs" />
     <Compile Include="Assets\Scripts\UI\ProtagonistUIController.cs" />
+    <Compile Include="Assets\Scripts\House\DoorController.cs" />
     <Compile Include="Assets\Scripts\Drawer\DrawerController.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistController.cs" />
     <Compile Include="Assets\Misc\Scripts\House\WallSpawner.cs" />
@@ -76,8 +77,7 @@
     <Compile Include="Assets\Scripts\Drawer\DrawerState.cs" />
     <Compile Include="Assets\Scripts\TV\TVState.cs" />
     <Compile Include="Assets\Scripts\Textures\TextureMap.cs" />
-    <Compile Include="Assets\Misc\Scripts\Wardrobe\DoorController.cs" />
-    <Compile Include="Assets\Misc\Scripts\Wardrobe\DoorPosition.cs" />
+    <Compile Include="Assets\Scripts\House\DoorRotationType.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistState.cs" />
     <Compile Include="Assets\Scripts\Interactive\CanvasRotationController.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 namespace Assets.Scripts.UI
 {
@@ -11,11 +12,15 @@ namespace Assets.Scripts.UI
     {
         public UIOptionState State { get; private set; }
 
-        Material FirstOptionMessage => option1.GetComponent<Image>().material;
-        Material SecondOptionMessage => option2.GetComponent<Image>().material;
+        Material FirstOptionMessage => button1.GetComponent<Image>().material;
+        Material SecondOptionMessage => button2.GetComponent<Image>().material;
 
-        [SerializeField] Button option1; // start by default
-        [SerializeField] Button option2; // TODO
+         Button button1; // start by default
+         Button button2; // TODO
+
+        [SerializeField] GameObject options;
+        [SerializeField] GameObject layout;
+
 
         [SerializeField] Material firstMotivationMessage;
         [SerializeField] Material secondMotivationMessage;
@@ -23,10 +28,11 @@ namespace Assets.Scripts.UI
         // Start is called before the first frame update
         void Start()
         {
-            Button btn1 = option1.GetComponent<Button>();
-            Button btn2 = option2.GetComponent<Button>();
-            btn1.onClick.AddListener(FirstOption);
-            btn2.onClick.AddListener(SecondOption);
+            button1 = options.GetComponentsInChildren<Button>()[0];
+            button2 = options.GetComponentsInChildren<Button>()[1];
+
+            button1.onClick.AddListener(FirstOption);
+            button2.onClick.AddListener(SecondOption);
         }
 
         // Update is called once per frame
@@ -39,30 +45,30 @@ namespace Assets.Scripts.UI
         {
             if (GameManager.Instance.State.Equals(GameState.Menu))
             {
-                option2.gameObject.SetActive(false);
+                //button2.gameObject.SetActive(false);
             }
             if (GameManager.Instance.State.Equals(GameState.Start))
             {
-                option1.gameObject.SetActive(false);
-                option2.gameObject.SetActive(false);
+                options.SetActive(false);
+                layout.SetActive(false);
             }
             if (GameManager.Instance.State.Equals(GameState.Motivation))
             {
-                option1.GetComponent<Image>().material = firstMotivationMessage;
-                option2.GetComponent<Image>().material = secondMotivationMessage;
+                button1.GetComponent<Image>().material = firstMotivationMessage;
+                button2.GetComponent<Image>().material = secondMotivationMessage;
 
-                option1.gameObject.SetActive(true);
-                option2.gameObject.SetActive(true);
+                options.SetActive(true);
+                layout.SetActive(false);
             }
             if (GameManager.Instance.State.Equals(GameState.Challenge))
             {
-                option1.gameObject.SetActive(false);
-                option2.gameObject.SetActive(false);
+                options.SetActive(false);
+                layout.SetActive(false);
             }
             if (GameManager.Instance.State.Equals(GameState.End))
             {
-                option1.gameObject.SetActive(false);
-                option2.gameObject.SetActive(false);
+                options.SetActive(false);
+                layout.SetActive(false);
             }
         }
 
@@ -122,19 +128,6 @@ namespace Assets.Scripts.UI
             {
 
             }
-        }
-
-        void FirstMotivation()
-        {
-
-        }
-
-        void SecondMotivation()
-        {
-            State = UIOptionState.Option2;
-            Debug.Log($"{State}");
-            ProtagonistUIController.Instance.AddToChat(SecondOptionMessage);
-            GameManager.Instance.State = GameState.Challenge;
         }
     }
 }
