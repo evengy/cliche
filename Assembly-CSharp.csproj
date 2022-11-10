@@ -57,12 +57,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Interactive\UIInteractions.cs" />
+    <Compile Include="Assets\Scripts\Helpers\Singleton.cs" />
+    <Compile Include="Assets\Scripts\UI\MainUIController.cs" />
     <Compile Include="Assets\Scripts\TV\TVSwitchController.cs" />
+    <Compile Include="Assets\Scripts\Game\GameState.cs" />
+    <Compile Include="Assets\Scripts\UI\ProtagonistUIController.cs" />
     <Compile Include="Assets\Scripts\Drawer\DrawerController.cs" />
-    <Compile Include="Assets\Misc\Scripts\Helpers\Singleton.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistController.cs" />
     <Compile Include="Assets\Misc\Scripts\House\WallSpawner.cs" />
+    <Compile Include="Assets\Scripts\UI\Chatter.cs" />
     <Compile Include="Assets\Misc\Scripts\Shaders\HauntedWallsShader.cs" />
+    <Compile Include="Assets\Scripts\UI\UIOptionState.cs" />
     <Compile Include="Assets\Scripts\TV\TVInteractions.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistInteractions.cs" />
     <Compile Include="Assets\Scripts\Interactive\Pin.cs" />
@@ -75,6 +80,7 @@
     <Compile Include="Assets\Misc\Scripts\Wardrobe\DoorPosition.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistState.cs" />
     <Compile Include="Assets\Scripts\Interactive\CanvasRotationController.cs" />
+    <Compile Include="Assets\Scripts\Game\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

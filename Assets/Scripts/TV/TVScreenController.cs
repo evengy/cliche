@@ -23,17 +23,9 @@ public class TVScreenController : MonoBehaviour
         interactions = GetComponent<TVInteractions>();
         state = TVState.Idle;
     }
-    void Foo()
+    void UpdateState()
     {
-        //if (Input.GetKeyDown(KeyCode.H))
-        //{
-        //    state = TVState.Haunted;
-        //}
-        //if (Input.GetKeyDown(KeyCode.I))
-        //{
-        //    state = TVState.Idle;
-        //}
-        if (Input.GetKeyDown(KeyCode.A))
+        if (GetComponent<UIInteractions>().IsInteractive)
         {
             state = TVState.Awake;
         }
@@ -74,7 +66,7 @@ public class TVScreenController : MonoBehaviour
             }
             else if (GetComponent<UIInteractions>().IsInteractive)
             {
-                Debug.Log("Need to find a TV Switch");
+                Debug.Log("Need to find a TV Switch"); // Show on UI
             }
         }
 
@@ -128,7 +120,7 @@ public class TVScreenController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Foo();
+        UpdateState();
         Switch();
         Animate();
         if (state.Equals(TVState.Haunted)) FollowProtagonist();

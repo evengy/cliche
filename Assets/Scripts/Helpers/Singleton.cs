@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.Helpers
 {
@@ -26,5 +29,5 @@ namespace Assets.Scripts.Helpers
             instance = this as T;
         }
     }
-}
 
+}
