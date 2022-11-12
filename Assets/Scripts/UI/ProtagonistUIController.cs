@@ -8,7 +8,7 @@ namespace Assets.Scripts.UI
 {
     public class ProtagonistUIController : Singleton<ProtagonistUIController>
     {
-        [SerializeField] GameObject chatter; // TODO should be 2 - left and right, left slower, right faster.
+        [SerializeField] GameObject chatter;
         [SerializeField] GameObject canvas;
 
         Queue<GameObject> messageQueue;
@@ -41,7 +41,7 @@ namespace Assets.Scripts.UI
             }
         }
 
-        public void AddToChat(Material message)
+        public void AddToChat(Material message, PositionState position)
         {
             timerStart = Time.time;
             timerStop = Time.time;
@@ -60,6 +60,22 @@ namespace Assets.Scripts.UI
             }
             var foo = Instantiate(chatter);
             foo.transform.SetParent(canvas.transform, false);
+            if (position.Equals(PositionState.Left))
+            {
+                //foo.GetComponent<RectTransform>().anchoredPosition = new Vector2(
+                //    foo.GetComponent<RectTransform>().anchoredPosition.x - 10,
+                //    foo.GetComponent<RectTransform>().anchoredPosition.y
+                //    );
+                //foo.GetComponent<Animator>().SetFloat("Offset", 1f);
+            }
+            else if (position.Equals(PositionState.Right))
+            {
+                //foo.GetComponent<RectTransform>().anchoredPosition = new Vector2(
+                //    foo.GetComponent<RectTransform>().anchoredPosition.x + 10,
+                //    foo.GetComponent<RectTransform>().anchoredPosition.y
+                //    );
+                //foo.GetComponent<Animator>().SetFloat("Offset", 1f);
+            }
             foo.GetComponent<Chatter>().SetMessage = message;
             messageQueue.Enqueue(foo);
         }

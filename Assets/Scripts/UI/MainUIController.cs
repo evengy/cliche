@@ -1,10 +1,7 @@
 ﻿using Assets.Scripts.Game;
 using Assets.Scripts.Helpers;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 namespace Assets.Scripts.UI
 {
@@ -15,8 +12,8 @@ namespace Assets.Scripts.UI
         Material FirstOptionMessage => button1.GetComponent<Image>().material;
         Material SecondOptionMessage => button2.GetComponent<Image>().material;
 
-         Button button1; // start by default
-         Button button2; // TODO
+        Button button1; // start by default
+        Button button2; // TODO
 
         [SerializeField] GameObject options;
         [SerializeField] GameObject layout;
@@ -87,8 +84,8 @@ namespace Assets.Scripts.UI
             {
                 State = UIOptionState.Option1;
                 Debug.Log($"{State}");
-                ProtagonistUIController.Instance.AddToChat(FirstOptionMessage);
-                ProtagonistUIController.Instance.AddToChat(motivationResponse);
+                //ProtagonistUIController.Instance.AddToChat(FirstOptionMessage, PositionState.Right);
+                ProtagonistUIController.Instance.AddToChat(motivationResponse, PositionState.Left);
                 GameManager.Instance.State = GameState.Challenge;
             }
             if (GameManager.Instance.State.Equals(GameState.Challenge))
@@ -116,8 +113,8 @@ namespace Assets.Scripts.UI
             {
                 State = UIOptionState.Option1;
                 Debug.Log($"{State}");
-                ProtagonistUIController.Instance.AddToChat(SecondOptionMessage);
-                ProtagonistUIController.Instance.AddToChat(motivationResponse);
+                //ProtagonistUIController.Instance.AddToChat(SecondOptionMessage, PositionState.Right);
+                ProtagonistUIController.Instance.AddToChat(motivationResponse, PositionState.Left);
                 GameManager.Instance.State = GameState.Challenge;
             }
             if (GameManager.Instance.State.Equals(GameState.Challenge))

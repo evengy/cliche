@@ -1,3 +1,4 @@
+using Assets.Scripts.Game;
 using Assets.Scripts.Interactive;
 using Assets.Scripts.Protagonist;
 using Assets.Scripts.TV;
@@ -8,6 +9,7 @@ using UnityEngine;
 public class TVScreenController : MonoBehaviour
 {
     [SerializeField] GameObject screen;
+   
     TVState state;
     Animator animator;
     TVInteractions interactions;
@@ -16,6 +18,8 @@ public class TVScreenController : MonoBehaviour
     [SerializeField] GameObject protagonist;
     [SerializeField] GameObject idleHands;
     [SerializeField] GameObject hauntedHands;
+
+    bool awake;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +29,10 @@ public class TVScreenController : MonoBehaviour
     }
     void UpdateState()
     {
-        if (GetComponent<UIInteractions>().IsInteractive)
+        if (!awake && GetComponent<UIInteractions>().IsInteractive)
         {
             state = TVState.Awake;
+            awake = true;
         }
         if (!state.Equals(TVState.Haunted) && animator.GetCurrentAnimatorStateInfo(0).IsName("Haunted_TV_Crawl"))
         {
@@ -37,6 +42,7 @@ public class TVScreenController : MonoBehaviour
 
     void FollowProtagonist()
     {
+        if (GameManager.Instance.State.Equals(GameState.End)) return; 
         var from = transform.position;
         var towards = new Vector3(protagonist.transform.position.x, from.y, protagonist.transform.position.z);
         
@@ -81,6 +87,7 @@ public class TVScreenController : MonoBehaviour
             animator.ResetTrigger("Haunted");
             animator.ResetTrigger("Awake");
             animator.ResetTrigger("Stop");
+            animator.ResetTrigger("Grab");
 
             animator.SetTrigger("Idle");
         }
@@ -91,6 +98,7 @@ public class TVScreenController : MonoBehaviour
             animator.ResetTrigger("Idle");
             animator.ResetTrigger("Awake");
             animator.ResetTrigger("Stop");
+            animator.ResetTrigger("Grab");
 
             animator.SetTrigger("Haunted");
         }
@@ -101,9 +109,9 @@ public class TVScreenController : MonoBehaviour
             animator.ResetTrigger("Idle");
             animator.ResetTrigger("Awake");
             animator.ResetTrigger("Haunted");
+            animator.ResetTrigger("Grab");
 
             animator.SetTrigger("Stop");
-
         }
         if (state.Equals(TVState.Awake))
         {
@@ -112,9 +120,24 @@ public class TVScreenController : MonoBehaviour
             animator.ResetTrigger("Idle");
             animator.ResetTrigger("Stop");
             animator.ResetTrigger("Haunted");
+            animator.ResetTrigger("Grab");
 
             animator.SetTrigger("Awake");
         }
+
+        if (GameManager.Instance.State.Equals(GameState.End) && !state.Equals(TVState.Off)) // grab changed the gamestate -> game ended before TV was switched off -> game lost
+        {
+            idleHands.SetActive(false);
+            hauntedHands.SetActive(true);
+
+            animator.ResetTrigger("Idle");
+            animator.ResetTrigger("Stop");
+            animator.ResetTrigger("Awake");
+            animator.ResetTrigger("Haunted");
+
+            animator.SetTrigger("Grab");
+        }
+
     }
 
     // Update is called once per frame

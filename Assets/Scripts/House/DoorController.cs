@@ -1,48 +1,46 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Helpers;
 using UnityEngine;
 
 namespace Assets.Scripts.House
 {
     public class DoorController : MonoBehaviour
     {
-        [SerializeField] float openSpeed = 10f;
-        [SerializeField] GameObject hinge;
-        [SerializeField] DoorRotationType door = DoorRotationType.Left;
-        Vector3 originPosition;
+
+        [SerializeField] float openSpeed = 360f;
+        [SerializeField] float openAngle = 80f;
+        [SerializeField] public GameObject hinge;
+        [SerializeField] PositionState positionState = PositionState.Left;
+        Quaternion doorRotation;
         Quaternion originRotation;
+        Vector3 originPosition;
         // Start is called before the first frame update
         void Start()
         {
-            if (hinge == null)
+            originPosition = transform.localPosition;
+            originRotation = transform.localRotation;
+
+            if (positionState.Equals(PositionState.Left))
             {
-                Debug.Log("hinge is missing");
+                doorRotation = Quaternion.Euler(0, openAngle, 0);
             }
-            originPosition = this.transform.position;
-            originRotation = this.transform.rotation;
+            else
+            {
+                doorRotation = Quaternion.Euler(0, -openAngle, 0);
+
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
-
-            if (door.Equals(DoorRotationType.Left))
+            if (Input.GetKey(KeyCode.O) && transform.rotation.eulerAngles.y < doorRotation.eulerAngles.y)  // TODO work on criteria
             {
-                if (Input.GetKey(KeyCode.O) && this.gameObject.transform.rotation.y < 0.65)
-                {
-                    this.transform.RotateAround(hinge.transform.position, Vector3.up, openSpeed * Time.deltaTime);
-                }
+                transform.RotateAround(hinge.transform.position, Vector3.up, Time.deltaTime * openSpeed);
             }
-            if (door.Equals(DoorRotationType.Right))
+            if (Input.GetKey(KeyCode.C))
             {
-                if (Input.GetKey(KeyCode.O))
-                {
-                    this.transform.RotateAround(hinge.transform.position, Vector3.up, -openSpeed * Time.deltaTime);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                this.transform.position = originPosition;
-                this.transform.rotation = originRotation;
+                transform.localPosition = originPosition;
+                transform.localRotation = originRotation;
             }
         }
     }

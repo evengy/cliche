@@ -1,8 +1,6 @@
 ﻿using Assets.Scripts.Helpers;
 using Assets.Scripts.UI;
 using Cinemachine;
-using System.Collections;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Assets.Scripts.Game
@@ -22,10 +20,13 @@ namespace Assets.Scripts.Game
         {
             if (Input.GetKeyDown(KeyCode.M)) // sound from the room -> chatter -> creates motivation
             {
-                ProtagonistUIController.Instance.AddToChat(motivationMessage); // material image
-                GameManager.Instance.State = GameState.Motivation;
+                ProtagonistUIController.Instance.AddToChat(motivationMessage, PositionState.Left); 
+                State = GameState.Motivation;
             }
-
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                State = GameState.End;
+            }
             if (State.Equals(GameState.Menu) || State.Equals(GameState.Motivation))
             {
                 Camera.main.GetComponent<CinemachineBrain>().enabled = false;

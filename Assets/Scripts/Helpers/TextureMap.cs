@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Textures
+namespace Assets.Scripts.Helpers
 {
     public class TextureMap : MonoBehaviour
     {
