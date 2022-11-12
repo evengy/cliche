@@ -24243,6 +24243,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   motivationMessage: {fileID: 2100000, guid: 775cb8d58cbb9304381d650e73e8bde8, type: 2}
+  protagonist: {fileID: 9014801832217270446}
+  dummy: {fileID: 1772997949}
 --- !u!4 &1616005682
 Transform:
   m_ObjectHideFlags: 0
@@ -27861,6 +27863,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 927038770619071935}
+  - component: {fileID: 927038770619071936}
   m_Layer: 0
   m_Name: Wardrobe
   m_TagString: Untagged
@@ -27884,18 +27887,20 @@ Transform:
   m_Father: {fileID: 692542146}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
---- !u!114 &927038770876217579
+--- !u!114 &927038770619071936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927038770876217584}
+  m_GameObject: {fileID: 927038770619071928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7668095d73ad5a64a81300f7b89f817e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f3ac731bcd0378439419fb0988c32c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  animate: 0
 --- !u!1 &927038770876217584
 GameObject:
   m_ObjectHideFlags: 0
@@ -27908,7 +27913,6 @@ GameObject:
   - component: {fileID: 927038770876217588}
   - component: {fileID: 927038770876217589}
   - component: {fileID: 927038770876217590}
-  - component: {fileID: 927038770876217579}
   m_Layer: 0
   m_Name: LeftDoor
   m_TagString: Untagged
@@ -28021,6 +28025,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 927038771143276723}
+  - component: {fileID: 927038771143276733}
   m_Layer: 0
   m_Name: Arts
   m_TagString: Untagged
@@ -28028,6 +28033,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &927038771143276733
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927038771143276732}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a966100bdd859d249a41c9fae2404c03, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &927038771727380676
 GameObject:
   m_ObjectHideFlags: 0
@@ -28112,18 +28137,6 @@ Transform:
   m_Father: {fileID: 927038771143276723}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &927038771882676082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927038771882676095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7668095d73ad5a64a81300f7b89f817e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!33 &927038771882676083
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -28213,7 +28226,6 @@ GameObject:
   - component: {fileID: 927038771882676083}
   - component: {fileID: 927038771882676092}
   - component: {fileID: 927038771882676093}
-  - component: {fileID: 927038771882676082}
   m_Layer: 0
   m_Name: RightDoor
   m_TagString: Untagged
