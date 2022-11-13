@@ -10,11 +10,14 @@ namespace Assets.Scripts.Game
         [SerializeField] Material motivationMessage; // Testing. should come from motivator
         [SerializeField] GameObject protagonist;
         [SerializeField] GameObject dummy;
+        [SerializeField] GameObject debugLightSource;
         public GameState State { get; set; } // TODO private set and refactor
         // Use this for initialization
         void Start()
         {
             State = GameState.Menu;
+            debugLightSource.SetActive(false);
+            RenderSettings.ambientIntensity = 0.5f;
         }
 
         // Update is called once per frame

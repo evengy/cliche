@@ -7,6 +7,7 @@ using UnityEngine;
 public class ProtagonistController : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 2f;
+    [SerializeField] float jumpForce = 10f;
     Animator animator;
     [SerializeField] GameObject handler;
     ProtagonistState state;
@@ -44,7 +45,6 @@ public class ProtagonistController : MonoBehaviour
             state = ProtagonistState.Scared;
         }
     }
-
     void Move()
     {
         if (Input.GetKey(KeyCode.UpArrow))
@@ -69,6 +69,12 @@ public class ProtagonistController : MonoBehaviour
         {
             state = ProtagonistState.Move;
             this.transform.Rotate(Vector3.up, 1 * movementSpeed);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            state = ProtagonistState.Jump;
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector2.up * jumpForce, (ForceMode)ForceMode2D.Impulse);
         }
     }
 

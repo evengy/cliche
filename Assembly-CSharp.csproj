@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{421AD765-C2B9-A274-B63C-D2BC7B1F6F88}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -68,6 +67,7 @@
     <Compile Include="Assets\Scripts\Drawer\DrawerController.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistController.cs" />
     <Compile Include="Assets\Misc\Scripts\House\WallSpawner.cs" />
+    <Compile Include="Assets\Scripts\Misc\WardrobeAnimation.cs" />
     <Compile Include="Assets\Scripts\House\DoorInteractions.cs" />
     <Compile Include="Assets\Scripts\UI\Chatter.cs" />
     <Compile Include="Assets\Misc\Scripts\Shaders\HauntedWallsShader.cs" />
@@ -84,9 +84,8 @@
     <Compile Include="Assets\Scripts\Helpers\TextureMap.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistState.cs" />
     <Compile Include="Assets\Scripts\Interactive\CanvasRotationController.cs" />
-    <Compile Include="Assets\Scripts\Game\GameManager.cs" />
     <Compile Include="Assets\Scripts\Misc\WardrobeController.cs" />
-    <Compile Include="Assets\Scripts\Misc\WardrobeAnimation.cs" />
+    <Compile Include="Assets\Scripts\Game\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

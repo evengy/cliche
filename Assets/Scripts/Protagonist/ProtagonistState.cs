@@ -11,6 +11,7 @@ namespace Assets.Scripts.Protagonist
         Idle,
         Move,
         Use,
-        Scared
+        Scared,
+        Jump
     }
 }
