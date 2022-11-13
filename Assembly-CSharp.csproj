@@ -61,7 +61,6 @@
     <Compile Include="Assets\Scripts\UI\MainUIController.cs" />
     <Compile Include="Assets\Scripts\TV\TVSwitchController.cs" />
     <Compile Include="Assets\Scripts\Game\GameState.cs" />
-    <Compile Include="Assets\Scripts\TV\TVGrab.cs" />
     <Compile Include="Assets\Scripts\UI\ProtagonistUIController.cs" />
     <Compile Include="Assets\Scripts\House\DoorController.cs" />
     <Compile Include="Assets\Scripts\Drawer\DrawerController.cs" />
