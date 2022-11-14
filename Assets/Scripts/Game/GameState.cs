@@ -9,6 +9,7 @@ namespace Assets.Scripts.Game
         Start,
         Motivation,
         Challenge,
-        End
+        GameOver,
+        GameComplete
     }
 }

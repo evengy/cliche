@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\Helpers\Singleton.cs" />
     <Compile Include="Assets\Scripts\UI\MainUIController.cs" />
     <Compile Include="Assets\Scripts\TV\TVSwitchController.cs" />
+    <Compile Include="Assets\Scripts\Ghost\GhostController.cs" />
     <Compile Include="Assets\Scripts\Game\GameState.cs" />
     <Compile Include="Assets\Scripts\UI\ProtagonistUIController.cs" />
     <Compile Include="Assets\Scripts\House\DoorController.cs" />
@@ -72,8 +73,8 @@
     <Compile Include="Assets\Misc\Scripts\Shaders\HauntedWallsShader.cs" />
     <Compile Include="Assets\Scripts\UI\UIOptionState.cs" />
     <Compile Include="Assets\Scripts\TV\TVInteractions.cs" />
+    <Compile Include="Assets\Scripts\Ghost\SwappableObject.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistInteractions.cs" />
-    <Compile Include="Assets\Scripts\TV\GrabController.cs" />
     <Compile Include="Assets\Scripts\Interactive\Pin.cs" />
     <Compile Include="Assets\Scripts\Interactive\PickableObject.cs" />
     <Compile Include="Assets\Scripts\Helpers\PositionState.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\Scripts\TV\TVState.cs" />
     <Compile Include="Assets\Scripts\Helpers\TextureMap.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistState.cs" />
+    <Compile Include="Assets\Scripts\Interactive\TriggerOnProtagonist.cs" />
     <Compile Include="Assets\Scripts\Interactive\CanvasRotationController.cs" />
     <Compile Include="Assets\Scripts\Misc\WardrobeController.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />

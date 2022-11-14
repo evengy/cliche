@@ -18,6 +18,8 @@ public class TVScreenController : MonoBehaviour
     [SerializeField] GameObject protagonist;
     [SerializeField] GameObject idleHands;
     [SerializeField] GameObject hauntedHands;
+    [SerializeField] TriggerOnProtagonist grabTrigger;
+    [SerializeField] TriggerOnProtagonist awakeTrigger;
 
     bool awake;
     // Start is called before the first frame update
@@ -29,10 +31,14 @@ public class TVScreenController : MonoBehaviour
     }
     void UpdateState()
     {
-        if (!awake && GetComponent<UIInteractions>().IsInteractive)
+        if (!awake && awakeTrigger.Triggered)
         {
             state = TVState.Awake;
             awake = true;
+        }
+        if (grabTrigger.Triggered)
+        {
+            GameManager.Instance.State = GameState.GameOver;
         }
         if (!state.Equals(TVState.Haunted) && animator.GetCurrentAnimatorStateInfo(0).IsName("Haunted_TV_Crawl"))
         {
@@ -42,7 +48,9 @@ public class TVScreenController : MonoBehaviour
 
     void FollowProtagonist()
     {
-        if (GameManager.Instance.State.Equals(GameState.End)) return; 
+        if (GameManager.Instance.State.Equals(GameState.GameComplete)) return; 
+        if (GameManager.Instance.State.Equals(GameState.GameOver)) return; 
+
         var from = transform.position;
         var towards = new Vector3(protagonist.transform.position.x, from.y, protagonist.transform.position.z);
         
@@ -63,6 +71,7 @@ public class TVScreenController : MonoBehaviour
                 {
                     state = TVState.Off;
                     screen.SetActive(false);
+                    GameManager.Instance.State = GameState.GameComplete;
                 }
                 else
                 {
@@ -125,7 +134,7 @@ public class TVScreenController : MonoBehaviour
             animator.SetTrigger("Awake");
         }
 
-        if (GameManager.Instance.State.Equals(GameState.End) && !state.Equals(TVState.Off)) // grab changed the gamestate -> game ended before TV was switched off -> game lost
+        if (GameManager.Instance.State.Equals(GameState.GameOver)) // grab changed the gamestate -> game ended before TV was switched off -> game lost
         {
             idleHands.SetActive(false);
             hauntedHands.SetActive(true);
