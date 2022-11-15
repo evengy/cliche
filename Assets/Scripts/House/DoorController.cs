@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
+using Assets.Scripts.Interactive;
 using UnityEngine;
 
 namespace Assets.Scripts.House
@@ -33,11 +34,11 @@ namespace Assets.Scripts.House
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKey(KeyCode.O) && transform.rotation.eulerAngles.y < doorRotation.eulerAngles.y)  // TODO work on criteria
+            if (GetComponent<UIInteractions>().IsInteractive && Input.GetKey(KeyCode.D) && transform.rotation.eulerAngles.y < doorRotation.eulerAngles.y)  // TODO work on criteria
             {
                 transform.RotateAround(hinge.transform.position, Vector3.up, Time.deltaTime * openSpeed);
             }
-            if (Input.GetKey(KeyCode.C))
+            if (GetComponent<UIInteractions>().IsInteractive &&  Input.GetKey(KeyCode.C))
             {
                 transform.localPosition = originPosition;
                 transform.localRotation = originRotation;

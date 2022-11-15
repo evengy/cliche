@@ -1,15 +1,18 @@
 using Assets.Scripts.Game;
+using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactive;
 using Assets.Scripts.Protagonist;
 using Assets.Scripts.TV;
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class TVScreenController : MonoBehaviour
 {
     [SerializeField] GameObject screen;
-   
+
     TVState state;
     Animator animator;
     TVInteractions interactions;
@@ -20,7 +23,7 @@ public class TVScreenController : MonoBehaviour
     [SerializeField] GameObject hauntedHands;
     [SerializeField] TriggerOnProtagonist grabTrigger;
     [SerializeField] TriggerOnProtagonist awakeTrigger;
-
+    Rigidbody rb;
     bool awake;
     // Start is called before the first frame update
     void Start()
@@ -28,12 +31,15 @@ public class TVScreenController : MonoBehaviour
         animator = gameObject.GetComponent<Animator>(); // TODO refactor
         interactions = GetComponent<TVInteractions>();
         state = TVState.Idle;
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
     }
     void UpdateState()
     {
         if (!awake && awakeTrigger.Triggered)
         {
             state = TVState.Awake;
+            GameManager.Instance.State = GameState.Hold;
             awake = true;
         }
         if (grabTrigger.Triggered)
@@ -43,22 +49,27 @@ public class TVScreenController : MonoBehaviour
         if (!state.Equals(TVState.Haunted) && animator.GetCurrentAnimatorStateInfo(0).IsName("Haunted_TV_Crawl"))
         {
             state = TVState.Haunted;
+            GameManager.Instance.State = GameState.Challenge;
+            rb.isKinematic = false;
         }
     }
 
     void FollowProtagonist()
     {
-        if (GameManager.Instance.State.Equals(GameState.GameComplete)) return; 
-        if (GameManager.Instance.State.Equals(GameState.GameOver)) return; 
+
+        if (GameManager.Instance.State.Equals(GameState.GameComplete)) return;
+        if (GameManager.Instance.State.Equals(GameState.GameOver)) return;
 
         var from = transform.position;
         var towards = new Vector3(protagonist.transform.position.x, from.y, protagonist.transform.position.z);
-        
-        var direction = (- (towards - from)).normalized;
+
+        var direction = (-(towards - from)).normalized;
         var rotation = Quaternion.LookRotation(direction);
-        
-        transform.position = Vector3.MoveTowards(transform.position, towards, movementSpeed * Time.deltaTime);
+
+        //transform.position = Vector3.MoveTowards(transform.position, towards, movementSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+        this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
+          // if stuck ->  rb.AddForce(// random Vector 3, (ForceMode)ForceMode2D.Impulse);
     }
 
     void Switch()

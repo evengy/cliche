@@ -8,8 +8,9 @@ namespace Assets.Scripts.Game
         Menu,
         Start,
         Motivation,
+        Hold,
         Challenge,
         GameOver,
-        GameComplete
+        GameComplete,
     }
 }

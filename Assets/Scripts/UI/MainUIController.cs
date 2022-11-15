@@ -30,6 +30,7 @@ namespace Assets.Scripts.UI
         [SerializeField] Material firstMotivationMessage;
         [SerializeField] Material secondMotivationMessage;
         [SerializeField] Material motivationResponse;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -115,7 +116,7 @@ namespace Assets.Scripts.UI
                 Debug.Log($"{State}");
                 //ProtagonistUIController.Instance.AddToChat(FirstOptionMessage, PositionState.Right);
                 ProtagonistUIController.Instance.AddToChat(motivationResponse, PositionState.Left);
-                GameManager.Instance.State = GameState.Challenge;
+                //GameManager.Instance.State = GameState.Challenge;
             }
             if (GameManager.Instance.State.Equals(GameState.Challenge))
             {
@@ -148,7 +149,7 @@ namespace Assets.Scripts.UI
                 Debug.Log($"{State}");
                 //ProtagonistUIController.Instance.AddToChat(SecondOptionMessage, PositionState.Right);
                 ProtagonistUIController.Instance.AddToChat(motivationResponse, PositionState.Left);
-                GameManager.Instance.State = GameState.Challenge;
+                //GameManager.Instance.State = GameState.Challenge;
             }
             if (GameManager.Instance.State.Equals(GameState.Challenge))
             {

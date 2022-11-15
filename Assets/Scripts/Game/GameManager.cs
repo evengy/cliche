@@ -11,7 +11,19 @@ namespace Assets.Scripts.Game
         [SerializeField] GameObject protagonist;
         [SerializeField] GameObject dummy;
         [SerializeField] GameObject debugLightSource;
-        public GameState State { get; set; } // TODO private set and refactor
+        private GameState state;
+        public GameState State
+        {
+            get { return state; }
+            set
+            {
+                if (state != value)
+                {
+                    state = value;
+                    SoundManager.Instance.UpdateSound();
+                }
+            }
+        } // TODO private set and refactor
         // Use this for initialization
         void Start()
         {
