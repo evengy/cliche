@@ -7,7 +7,6 @@ namespace Assets.Scripts.Game
 {
     public class GameManager : Singleton<GameManager>
     {
-        [SerializeField] Material motivationMessage; // Testing. should come from motivator
         [SerializeField] GameObject protagonist;
         [SerializeField] GameObject dummy;
         [SerializeField] GameObject debugLightSource;
@@ -35,11 +34,11 @@ namespace Assets.Scripts.Game
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.M)) // Testing. should come from motivator
-            {
-                ProtagonistUIController.Instance.AddToChat(motivationMessage, PositionState.Left);
-                State = GameState.Motivation;
-            }
+            //if (State.Equals(GameState.Motivation)) // Testing. should come from motivator
+            //{
+            //    ProtagonistUIController.Instance.AddToChat(motivationMessage, PositionState.Left);
+            //    //State = GameState.Motivation;
+            //}
             if (State.Equals(GameState.Menu))
             {
                 protagonist.SetActive(false);

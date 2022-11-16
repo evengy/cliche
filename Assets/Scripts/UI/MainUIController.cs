@@ -76,6 +76,12 @@ namespace Assets.Scripts.UI
                 options.SetActive(false);
                 mainLayout.SetActive(false);
             }
+            if (GameManager.Instance.State.Equals(GameState.Any))
+            {
+                endgameLayout.SetActive(false);
+                options.SetActive(false);
+                mainLayout.SetActive(false);
+            }
             if (GameManager.Instance.State.Equals(GameState.GameOver))
             {
 
@@ -116,7 +122,7 @@ namespace Assets.Scripts.UI
                 Debug.Log($"{State}");
                 //ProtagonistUIController.Instance.AddToChat(FirstOptionMessage, PositionState.Right);
                 ProtagonistUIController.Instance.AddToChat(motivationResponse, PositionState.Left);
-                //GameManager.Instance.State = GameState.Challenge;
+                GameManager.Instance.State = GameState.Any;
             }
             if (GameManager.Instance.State.Equals(GameState.Challenge))
             {
@@ -149,7 +155,7 @@ namespace Assets.Scripts.UI
                 Debug.Log($"{State}");
                 //ProtagonistUIController.Instance.AddToChat(SecondOptionMessage, PositionState.Right);
                 ProtagonistUIController.Instance.AddToChat(motivationResponse, PositionState.Left);
-                //GameManager.Instance.State = GameState.Challenge;
+                GameManager.Instance.State = GameState.Any;
             }
             if (GameManager.Instance.State.Equals(GameState.Challenge))
             {

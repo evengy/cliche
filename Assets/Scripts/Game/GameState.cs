@@ -12,5 +12,6 @@ namespace Assets.Scripts.Game
         Challenge,
         GameOver,
         GameComplete,
+        Any
     }
 }

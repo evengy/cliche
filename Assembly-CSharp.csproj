@@ -71,8 +71,10 @@
     <Compile Include="Assets\Scripts\House\DoorInteractions.cs" />
     <Compile Include="Assets\Scripts\UI\Chatter.cs" />
     <Compile Include="Assets\Misc\Scripts\Shaders\HauntedWallsShader.cs" />
+    <Compile Include="Assets\Scripts\Game\SoundManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIOptionState.cs" />
     <Compile Include="Assets\Scripts\TV\TVInteractions.cs" />
+    <Compile Include="Assets\Scripts\Helpers\CameraShake.cs" />
     <Compile Include="Assets\Scripts\Ghost\SwappableObject.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistInteractions.cs" />
     <Compile Include="Assets\Scripts\Interactive\Pin.cs" />
@@ -87,8 +89,6 @@
     <Compile Include="Assets\Scripts\Interactive\CanvasRotationController.cs" />
     <Compile Include="Assets\Scripts\Misc\WardrobeController.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Game\SoundManager.cs" />
-    <Compile Include="Assets\Scripts\Helpers\CameraShake.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
