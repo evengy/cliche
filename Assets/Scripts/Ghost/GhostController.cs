@@ -36,6 +36,8 @@ namespace Assets.Scripts.Ghost
                     swappables[i].transform.rotation.w);
 
 
+
+                // TODO fix!!
                 if (i + 1 < swappables.Length)
                 {
                     int r = Random.Range(i + 1, swappables.Length);
@@ -43,6 +45,7 @@ namespace Assets.Scripts.Ghost
                     indexer[i] = r;
                     indexer[r] = i;
                 }
+                
             }
 
             for (int i = 0; i < swappables.Length; i++)

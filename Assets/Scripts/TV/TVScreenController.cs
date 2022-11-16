@@ -19,6 +19,8 @@ public class TVScreenController : MonoBehaviour
     TVInteractions interactions;
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float rotationSpeed = 5f;
+    [SerializeField] float maxMotivationRepeat = 15f;
+    [SerializeField] float minMotivationRepeat = 5f;
     [SerializeField] GameObject protagonist;
     [SerializeField] GameObject idleHands;
     [SerializeField] GameObject hauntedHands;
@@ -26,17 +28,20 @@ public class TVScreenController : MonoBehaviour
     [SerializeField] TriggerOnProtagonist awakeTrigger;
 
     [SerializeField] AudioClip motivation;
-    [SerializeField] Material motivationMessage; // Testing. should come from motivator
+    [SerializeField] Material motivationMessage; 
+    [SerializeField] Material batteryLowMessage;
 
     Rigidbody rb;
     bool awake;
 
     AudioSource source;
-    bool motivated;
-    bool ready;
+
+    float timer;
+    float repeat;
     // Start is called before the first frame update
     void Start()
     {
+        timer = 0;
         animator = gameObject.GetComponent<Animator>(); // TODO refactor
         interactions = GetComponent<TVInteractions>();
         state = TVState.Idle;
@@ -44,32 +49,28 @@ public class TVScreenController : MonoBehaviour
         rb.isKinematic = true;
 
         source = gameObject.AddComponent<AudioSource>();
+        repeat = Random.Range(minMotivationRepeat,maxMotivationRepeat);
     }
 
     void Motivation() // TODO refactor
     {
-        if (!ready)
+
+        if (GameManager.Instance.State.Equals(GameState.Any) && timer > repeat)
         {
-            if (!motivated && GameManager.Instance.State.Equals(GameState.Start) && !awake)
-            {
-                source.loop = false;
-                source.clip = motivation;
-                source.PlayDelayed(5);
-                motivated = true;
-            }
-            if (!source.isPlaying && motivated)
-            {
-                ProtagonistUIController.Instance.AddToChat(motivationMessage, PositionState.Left);
-                GameManager.Instance.State = GameState.Motivation;
-                ready = true;
-            }
+            GameManager.Instance.State = GameState.Motivation;
+            timer = 0;
+            source.loop = false;
+            source.clip = motivation; // random sound from available
+            source.Play();
+            ProtagonistUIController.Instance.AddToChat(motivationMessage, PositionState.Left);
+            repeat = Random.Range(minMotivationRepeat, maxMotivationRepeat);
         }
+        timer += Time.deltaTime;
     }
     void UpdateState()
     {
         if (!awake && awakeTrigger.Triggered)
         {
-            ready = true;
             state = TVState.Awake;
             GameManager.Instance.State = GameState.Hold;
             awake = true;
@@ -113,16 +114,18 @@ public class TVScreenController : MonoBehaviour
                 if (!state.Equals(TVState.Off))
                 {
                     // TODO add low battery to the chatter
+                    ProtagonistUIController.Instance.AddToChat(batteryLowMessage, PositionState.Left); // placeholder
                     // change gameplay from here
-                    state = TVState.Off;
-                    screen.SetActive(false);
-                    GameManager.Instance.State = GameState.GameComplete;
+
+                    //state = TVState.Off;
+                    //screen.SetActive(false);
+                    //GameManager.Instance.State = GameState.GameComplete;
                 }
-                else
-                {
-                    state = TVState.On;
-                    screen.SetActive(true);
-                }
+                //else
+                //{
+                //    state = TVState.On;
+                //    screen.SetActive(true);
+                //}
             }
             else if (GetComponent<UIInteractions>().IsInteractive)
             {

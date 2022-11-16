@@ -86,7 +86,7 @@ namespace Assets.Scripts.Game
                 case GameState.Menu:
                     Swap(menuSound);
                     break;
-                case GameState.Start:
+                case GameState.Any:
                     Swap(librarySound);
                     break;
                 case GameState.Motivation:

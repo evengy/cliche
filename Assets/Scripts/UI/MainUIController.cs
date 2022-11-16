@@ -110,7 +110,7 @@ namespace Assets.Scripts.UI
             Debug.Log("option 1");
             if (GameManager.Instance.State.Equals(GameState.Menu))
             {
-                GameManager.Instance.State = GameState.Start;
+                GameManager.Instance.State = GameState.Any;
             }
             if (GameManager.Instance.State.Equals(GameState.Start))
             {
