@@ -6,13 +6,14 @@ namespace Assets.Scripts.Game
     public enum GameState 
     {
         Menu,
-        Start, // Any
+        Start,
         Motivation,
         Challenge,
         GameOver,
         
         GameComplete,
-        Hold,
-        Any
+        
+        Wait,
+        Continue
     }
 }

@@ -37,13 +37,13 @@ namespace Assets.Scripts.Ghost
 
 
 
-                // TODO fix!!
                 if (i + 1 < swappables.Length)
                 {
-                    int r = Random.Range(i + 1, swappables.Length);
-
-                    indexer[i] = r;
-                    indexer[r] = i;
+                    indexer[i] = i+1;
+                }
+                else
+                {
+                    indexer[i] = 0;
                 }
                 
             }

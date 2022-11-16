@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Game;
 using Assets.Scripts.Helpers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
@@ -76,7 +77,13 @@ namespace Assets.Scripts.UI
                 options.SetActive(false);
                 mainLayout.SetActive(false);
             }
-            if (GameManager.Instance.State.Equals(GameState.Any))
+            if (GameManager.Instance.State.Equals(GameState.Continue))
+            {
+                endgameLayout.SetActive(false);
+                options.SetActive(false);
+                mainLayout.SetActive(false);
+            }
+            if (GameManager.Instance.State.Equals(GameState.Wait))
             {
                 endgameLayout.SetActive(false);
                 options.SetActive(false);
@@ -110,7 +117,7 @@ namespace Assets.Scripts.UI
             Debug.Log("option 1");
             if (GameManager.Instance.State.Equals(GameState.Menu))
             {
-                GameManager.Instance.State = GameState.Any;
+                GameManager.Instance.State = GameState.Start;
             }
             if (GameManager.Instance.State.Equals(GameState.Start))
             {
@@ -122,7 +129,7 @@ namespace Assets.Scripts.UI
                 Debug.Log($"{State}");
                 //ProtagonistUIController.Instance.AddToChat(FirstOptionMessage, PositionState.Right);
                 ProtagonistUIController.Instance.AddToChat(motivationResponse, PositionState.Left);
-                GameManager.Instance.State = GameState.Any;
+                GameManager.Instance.State = GameState.Continue;
             }
             if (GameManager.Instance.State.Equals(GameState.Challenge))
             {
@@ -130,11 +137,11 @@ namespace Assets.Scripts.UI
             }
             if (GameManager.Instance.State.Equals(GameState.GameOver))
             {
-
+                SceneManager.LoadScene("SampleScene");
             }
             if (GameManager.Instance.State.Equals(GameState.GameComplete))
             {
-
+                SceneManager.LoadScene("SampleScene");
             }
         }
 
@@ -155,7 +162,7 @@ namespace Assets.Scripts.UI
                 Debug.Log($"{State}");
                 //ProtagonistUIController.Instance.AddToChat(SecondOptionMessage, PositionState.Right);
                 ProtagonistUIController.Instance.AddToChat(motivationResponse, PositionState.Left);
-                GameManager.Instance.State = GameState.Any;
+                GameManager.Instance.State = GameState.Continue;
             }
             if (GameManager.Instance.State.Equals(GameState.Challenge))
             {

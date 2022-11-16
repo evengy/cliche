@@ -19,6 +19,7 @@ namespace Assets.Scripts.Game
                 if (state != value)
                 {
                     state = value;
+                    Debug.Log($"state updated to {state}");
                     SoundManager.Instance.UpdateSound();
                 }
             }
@@ -34,6 +35,7 @@ namespace Assets.Scripts.Game
         // Update is called once per frame
         void Update()
         {
+            
             //if (State.Equals(GameState.Motivation)) // Testing. should come from motivator
             //{
             //    ProtagonistUIController.Instance.AddToChat(motivationMessage, PositionState.Left);

@@ -86,11 +86,10 @@ namespace Assets.Scripts.Game
                 case GameState.Menu:
                     Swap(menuSound);
                     break;
-                case GameState.Any:
+                case GameState.Start:
                     Swap(librarySound);
                     break;
                 case GameState.Motivation:
-                    Swap(null);
                     break;
                 case GameState.Challenge:
                     DirectInit(hauntedTVSound);
@@ -101,8 +100,10 @@ namespace Assets.Scripts.Game
                 case GameState.GameComplete:
                     Swap(creditsSound);
                     break;
-                case GameState.Hold:
+                case GameState.Wait:
                     Swap(null);
+                    break;
+                case GameState.Continue:
                     break;
                 default:
                     break;

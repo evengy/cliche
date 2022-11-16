@@ -76,6 +76,10 @@ public class ProtagonistController : MonoBehaviour
             state = ProtagonistState.Jump;
             gameObject.GetComponent<Rigidbody>().AddForce(Vector2.up * jumpForce, (ForceMode)ForceMode2D.Impulse);
         }
+        if (gameObject.transform.position.y > 4)
+        {
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector2.down * jumpForce/2, (ForceMode)ForceMode2D.Impulse);
+        }
     }
 
     void Animate()

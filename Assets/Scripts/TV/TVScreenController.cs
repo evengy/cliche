@@ -27,41 +27,44 @@ public class TVScreenController : MonoBehaviour
     [SerializeField] TriggerOnProtagonist grabTrigger;
     [SerializeField] TriggerOnProtagonist awakeTrigger;
 
-    [SerializeField] AudioClip motivation;
+    [SerializeField] AudioClip[] motivationSounds;
     [SerializeField] Material motivationMessage; 
     [SerializeField] Material batteryLowMessage;
 
     Rigidbody rb;
     bool awake;
 
-    AudioSource source;
+    [SerializeField] AudioSource motivationSoundSource;
 
     float timer;
     float repeat;
     // Start is called before the first frame update
     void Start()
     {
-        timer = 0;
         animator = gameObject.GetComponent<Animator>(); // TODO refactor
         interactions = GetComponent<TVInteractions>();
         state = TVState.Idle;
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
 
-        source = gameObject.AddComponent<AudioSource>();
+        //source = gameObject.AddComponent<AudioSource>();
         repeat = Random.Range(minMotivationRepeat,maxMotivationRepeat);
     }
 
     void Motivation() // TODO refactor
     {
-
-        if (GameManager.Instance.State.Equals(GameState.Any) && timer > repeat)
+        if (GameManager.Instance.State.Equals(GameState.Menu))
         {
-            GameManager.Instance.State = GameState.Motivation;
+            timer = 0; // timer starts only when game starts
+        }
+
+        if ((GameManager.Instance.State.Equals(GameState.Start) || GameManager.Instance.State.Equals(GameState.Continue)) && timer > repeat)
+        {
+            //GameManager.Instance.State = GameState.Motivation;
             timer = 0;
-            source.loop = false;
-            source.clip = motivation; // random sound from available
-            source.Play();
+            motivationSoundSource.loop = false;
+            motivationSoundSource.clip = motivationSounds[Random.Range(0,motivationSounds.Length)]; // random sound from available
+            motivationSoundSource.Play();
             ProtagonistUIController.Instance.AddToChat(motivationMessage, PositionState.Left);
             repeat = Random.Range(minMotivationRepeat, maxMotivationRepeat);
         }
@@ -72,7 +75,7 @@ public class TVScreenController : MonoBehaviour
         if (!awake && awakeTrigger.Triggered)
         {
             state = TVState.Awake;
-            GameManager.Instance.State = GameState.Hold;
+            GameManager.Instance.State = GameState.Wait;
             awake = true;
         }
         if (grabTrigger.Triggered)
@@ -114,12 +117,10 @@ public class TVScreenController : MonoBehaviour
                 if (!state.Equals(TVState.Off))
                 {
                     // TODO add low battery to the chatter
-                    ProtagonistUIController.Instance.AddToChat(batteryLowMessage, PositionState.Left); // placeholder
-                    // change gameplay from here
-
-                    //state = TVState.Off;
-                    //screen.SetActive(false);
-                    //GameManager.Instance.State = GameState.GameComplete;
+                    //ProtagonistUIController.Instance.AddToChat(batteryLowMessage, PositionState.Left); // placeholder
+                    state = TVState.Off;
+                    screen.SetActive(false);
+                    GameManager.Instance.State = GameState.GameComplete;
                 }
                 //else
                 //{
