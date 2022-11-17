@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Interactive\UIInteractions.cs" />
     <Compile Include="Assets\Scripts\Helpers\Singleton.cs" />
+    <Compile Include="Assets\Scripts\UI\UIHandler.cs" />
     <Compile Include="Assets\Scripts\UI\MainUIController.cs" />
     <Compile Include="Assets\Scripts\TV\TVSwitchController.cs" />
     <Compile Include="Assets\Scripts\Ghost\GhostController.cs" />
@@ -88,7 +89,6 @@
     <Compile Include="Assets\Scripts\Interactive\TriggerOnProtagonist.cs" />
     <Compile Include="Assets\Scripts\Interactive\CanvasRotationController.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
-    <Compile Include="Assets\Scripts\UI\UIHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
