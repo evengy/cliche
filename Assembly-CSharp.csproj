@@ -81,13 +81,14 @@
     <Compile Include="Assets\Scripts\Helpers\PositionState.cs" />
     <Compile Include="Assets\Scripts\TV\TVScreenController.cs" />
     <Compile Include="Assets\Scripts\Drawer\DrawerState.cs" />
+    <Compile Include="Assets\Scripts\Game\MenuManager.cs" />
     <Compile Include="Assets\Scripts\TV\TVState.cs" />
     <Compile Include="Assets\Scripts\Helpers\TextureMap.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistState.cs" />
     <Compile Include="Assets\Scripts\Interactive\TriggerOnProtagonist.cs" />
     <Compile Include="Assets\Scripts\Interactive\CanvasRotationController.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Game\MenuManager.cs" />
+    <Compile Include="Assets\Scripts\UI\UIHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
