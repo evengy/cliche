@@ -67,7 +67,6 @@
     <Compile Include="Assets\Scripts\Drawer\DrawerController.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistController.cs" />
     <Compile Include="Assets\Misc\Scripts\House\WallSpawner.cs" />
-    <Compile Include="Assets\Scripts\Misc\WardrobeAnimation.cs" />
     <Compile Include="Assets\Scripts\House\DoorInteractions.cs" />
     <Compile Include="Assets\Scripts\UI\Chatter.cs" />
     <Compile Include="Assets\Misc\Scripts\Shaders\HauntedWallsShader.cs" />
@@ -87,7 +86,6 @@
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistState.cs" />
     <Compile Include="Assets\Scripts\Interactive\TriggerOnProtagonist.cs" />
     <Compile Include="Assets\Scripts\Interactive\CanvasRotationController.cs" />
-    <Compile Include="Assets\Scripts\Misc\WardrobeController.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
     <Compile Include="Assets\Scripts\Game\MenuManager.cs" />
   </ItemGroup>

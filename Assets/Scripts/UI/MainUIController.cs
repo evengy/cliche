@@ -22,6 +22,8 @@ namespace Assets.Scripts.UI
 
         [SerializeField] Material newGame;
         [SerializeField] Material tryAgain;
+        [SerializeField] Material backToMenu;
+        [SerializeField] Material credits;
         [SerializeField] Material exit;
         [SerializeField] Material gameOver;
         [SerializeField] Material gameComplete;
@@ -92,8 +94,8 @@ namespace Assets.Scripts.UI
             if (GameManager.Instance.State.Equals(GameState.GameOver))
             {
 
-                button1.GetComponent<Image>().material = tryAgain;
-                button2.GetComponent<Image>().material = exit;
+                button1.GetComponent<Image>().material = tryAgain; // back to menu
+                button2.GetComponent<Image>().material = exit; // back to menu
                 endgameTitle.GetComponent<Image>().material = gameOver;
 
                 options.SetActive(true);
@@ -102,8 +104,8 @@ namespace Assets.Scripts.UI
             }
             if (GameManager.Instance.State.Equals(GameState.GameComplete))
             {
-                button1.GetComponent<Image>().material = newGame;
-                button2.GetComponent<Image>().material = exit; 
+                button1.GetComponent<Image>().material = newGame; // back to menu
+                button2.GetComponent<Image>().material = exit;  // back to menu
                 endgameTitle.GetComponent<Image>().material = gameComplete;
 
                 options.SetActive(true);
