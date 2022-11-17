@@ -89,6 +89,7 @@
     <Compile Include="Assets\Scripts\Interactive\CanvasRotationController.cs" />
     <Compile Include="Assets\Scripts\Misc\WardrobeController.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Game\MenuManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
