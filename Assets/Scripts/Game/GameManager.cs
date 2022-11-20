@@ -36,11 +36,14 @@ namespace Assets.Scripts.Game
         void Update()
         {
             
-            //if (State.Equals(GameState.Motivation)) // Testing. should come from motivator
-            //{
-            //    ProtagonistUIController.Instance.AddToChat(motivationMessage, PositionState.Left);
-            //    //State = GameState.Motivation;
-            //}
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                State = GameState.GameOver;
+            }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                State = GameState.GameComplete;
+            }
             if (State.Equals(GameState.Menu))
             {
                 protagonist.SetActive(false);

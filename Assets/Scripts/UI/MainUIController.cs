@@ -15,6 +15,7 @@ namespace Assets.Scripts.UI
 
         Button button1; // start by default
         Button button2; // TODO
+        Button button3; // Exit always
 
         [SerializeField] GameObject options;
         [SerializeField] GameObject mainLayout;
@@ -39,9 +40,11 @@ namespace Assets.Scripts.UI
         {
             button1 = options.GetComponentsInChildren<Button>()[0];
             button2 = options.GetComponentsInChildren<Button>()[1];
+            button3 = options.GetComponentsInChildren<Button>()[2];
 
             button1.onClick.AddListener(FirstOption);
             button2.onClick.AddListener(SecondOption);
+            button3.onClick.AddListener(ThirdOption);
         }
 
         // Update is called once per frame
@@ -95,7 +98,8 @@ namespace Assets.Scripts.UI
             {
 
                 button1.GetComponent<Image>().material = tryAgain; // back to menu
-                button2.GetComponent<Image>().material = exit; // back to menu
+                button2.gameObject.SetActive(false);
+                button3.GetComponent<Image>().material = exit; // back to menu
                 endgameTitle.GetComponent<Image>().material = gameOver;
 
                 options.SetActive(true);
@@ -104,8 +108,9 @@ namespace Assets.Scripts.UI
             }
             if (GameManager.Instance.State.Equals(GameState.GameComplete))
             {
-                button1.GetComponent<Image>().material = newGame; // back to menu
-                button2.GetComponent<Image>().material = exit;  // back to menu
+                button1.GetComponent<Image>().material = backToMenu; // back to menu
+                button2.gameObject.SetActive(false);
+                button3.GetComponent<Image>().material = exit;  // back to menu
                 endgameTitle.GetComponent<Image>().material = gameComplete;
 
                 options.SetActive(true);
@@ -178,6 +183,12 @@ namespace Assets.Scripts.UI
             {
 
             }
+        }
+
+        void ThirdOption()
+        {
+            Debug.Log("option 3");
+            Application.Quit(); 
         }
     }
 }

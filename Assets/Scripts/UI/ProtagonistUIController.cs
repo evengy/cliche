@@ -28,7 +28,7 @@ namespace Assets.Scripts.UI
         void Update()
         {
             timerStop += Time.deltaTime;
-            if (messageQueue.Count > 3)
+            if (messageQueue.Count > 1) 
             {
                 Debug.Log($"{messageQueue.Count}");
                 var foo = messageQueue.Dequeue();

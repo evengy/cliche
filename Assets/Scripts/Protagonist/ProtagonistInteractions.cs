@@ -8,6 +8,7 @@ namespace Assets.Scripts.Protagonist
     {
         public PickableObject Pick => pick;
         private PickableObject pick;
+        public bool CanJump { get; private set; }
         private bool isInteractive;
         public bool IsInteractive => isInteractive;
         // Use this for initialization
@@ -36,11 +37,20 @@ namespace Assets.Scripts.Protagonist
                 isInteractive = true;
                 pick = other.gameObject.GetComponent<PickableObject>();
             }
+
+            if (other.tag.Equals("JumpObject"))
+            {
+                CanJump = true;
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
             isInteractive = false;
+            if (other.tag.Equals("JumpObject"))
+            {
+                CanJump = false;
+            }
         }
     }
 }

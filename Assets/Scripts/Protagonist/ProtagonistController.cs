@@ -14,12 +14,17 @@ public class ProtagonistController : MonoBehaviour
     private bool tVSwitchFound;
     public bool TVSwitchFound => tVSwitchFound;
     ProtagonistInteractions interactions;
+
+    AudioSource audioSource;
+    [SerializeField] AudioClip[] footsteps;
+
     // Start is called before the first frame update
     void Start()
     {
         interactions = GetComponent<ProtagonistInteractions>();
         animator = gameObject.GetComponentInChildren<Animator>(); // TODO refactor
         state = ProtagonistState.Idle;
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     void Use()
@@ -71,14 +76,14 @@ public class ProtagonistController : MonoBehaviour
             this.transform.Rotate(Vector3.up, 1 * movementSpeed);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!state.Equals(ProtagonistState.Jump) && interactions.CanJump && Input.GetKeyDown(KeyCode.Space))
         {
             state = ProtagonistState.Jump;
             gameObject.GetComponent<Rigidbody>().AddForce(Vector2.up * jumpForce, (ForceMode)ForceMode2D.Impulse);
         }
         if (gameObject.transform.position.y > 4)
         {
-            gameObject.GetComponent<Rigidbody>().AddForce(Vector2.down * jumpForce/2, (ForceMode)ForceMode2D.Impulse);
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector2.down * jumpForce / 2, (ForceMode)ForceMode2D.Impulse);
         }
     }
 
@@ -114,6 +119,25 @@ public class ProtagonistController : MonoBehaviour
         }
     }
 
+    void PlaySounds()
+    {
+        if (state.Equals(ProtagonistState.Idle))
+        {
+
+        }
+        if (state.Equals(ProtagonistState.Move))
+        {
+            if (!audioSource.isPlaying)
+            {
+
+                var clip = footsteps[Random.Range(0, footsteps.Length)];
+                audioSource.clip = clip;
+                audioSource.loop = false;
+                audioSource.Play();
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -121,6 +145,7 @@ public class ProtagonistController : MonoBehaviour
         Move();
         //GetScared();
         Animate();
+        PlaySounds();
         state = ProtagonistState.Idle;
     }
 }

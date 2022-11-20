@@ -1,13 +1,8 @@
 using Assets.Scripts.Game;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactive;
-using Assets.Scripts.Protagonist;
 using Assets.Scripts.TV;
 using Assets.Scripts.UI;
-using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class TVScreenController : MonoBehaviour
@@ -29,6 +24,7 @@ public class TVScreenController : MonoBehaviour
 
     [SerializeField] AudioClip[] motivationSounds;
     [SerializeField] Material motivationMessage; 
+    [SerializeField] Material hintMessage;
     [SerializeField] Material batteryLowMessage;
 
     Rigidbody rb;
@@ -65,7 +61,7 @@ public class TVScreenController : MonoBehaviour
             motivationSoundSource.loop = false;
             motivationSoundSource.clip = motivationSounds[Random.Range(0,motivationSounds.Length)]; // random sound from available
             motivationSoundSource.Play();
-            ProtagonistUIController.Instance.AddToChat(motivationMessage, PositionState.Left);
+            ProtagonistUIController.Instance.AddToChat(motivationMessage, PositionState.Left); // TODO random
             repeat = Random.Range(minMotivationRepeat, maxMotivationRepeat);
         }
         timer += Time.deltaTime;
@@ -86,6 +82,7 @@ public class TVScreenController : MonoBehaviour
         {
             state = TVState.Haunted;
             GameManager.Instance.State = GameState.Challenge;
+            ProtagonistUIController.Instance.AddToChat(hintMessage, PositionState.Left);
             rb.isKinematic = false;
         }
     }
