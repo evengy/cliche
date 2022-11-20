@@ -1,5 +1,6 @@
 using Assets.Scripts.Interactive;
 using Assets.Scripts.Protagonist;
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,8 @@ public class ProtagonistController : MonoBehaviour
     AudioSource audioSource;
     [SerializeField] AudioClip[] footsteps;
 
+    [SerializeField] CinemachineFreeLook cinemachine;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,12 +30,45 @@ public class ProtagonistController : MonoBehaviour
         audioSource = gameObject.GetComponent<AudioSource>();
     }
 
+    void UpdateView()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            // top rig
+            cinemachine.m_Orbits[0].m_Height = 12;
+            cinemachine.m_Orbits[0].m_Radius = 3;
+            // middle rig
+            cinemachine.m_Orbits[1].m_Height = 6;
+            cinemachine.m_Orbits[1].m_Radius = 10;
+            // buttom rig
+            cinemachine.m_Orbits[2].m_Height = 1;
+            cinemachine.m_Orbits[2].m_Radius = 5;
+        }
+
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            // top rig
+            cinemachine.m_Orbits[0].m_Height = 12;
+            cinemachine.m_Orbits[0].m_Radius = 3;
+            // middle rig
+            cinemachine.m_Orbits[1].m_Height = 6;
+            cinemachine.m_Orbits[1].m_Radius = 10;
+            // buttom rig
+            cinemachine.m_Orbits[2].m_Height = 1;
+            cinemachine.m_Orbits[2].m_Radius = 5;
+
+            cinemachine.m_BindingMode = CinemachineTransposer.BindingMode.SimpleFollowWithWorldUp;
+        }
+    }
+
     void Use()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (interactions.IsInteractive)
             {
+                interactions.Pick.UI.gameObject.SetActive(false);
+
                 var pick = interactions.Pick;
                 if (pick != null)
                 {
@@ -141,6 +177,7 @@ public class ProtagonistController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //UpdateView();
         Use();
         Move();
         //GetScared();

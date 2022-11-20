@@ -62,14 +62,14 @@ namespace Assets.Scripts.Ghost
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                Swap(swappables);
-                //if (swappables.Where(s => s.CanBeSwapped).Count() > 1)
-                //{
-                //    Swap(swappables.Where(s => s.CanBeSwapped).ToArray());
-                //}
-            }
+            //if (Input.GetKeyDown(KeyCode.S))
+            //{
+            //    Swap(swappables);
+            //    //if (swappables.Where(s => s.CanBeSwapped).Count() > 1)
+            //    //{
+            //    //    Swap(swappables.Where(s => s.CanBeSwapped).ToArray());
+            //    //}
+            //}
         }
     }
 }

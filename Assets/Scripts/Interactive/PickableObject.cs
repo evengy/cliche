@@ -6,6 +6,7 @@ namespace Assets.Scripts.Interactive
     public class PickableObject : MonoBehaviour
     {
         GameObject pin;
+        [SerializeField] public GameObject UI;
         void Start()
         {
         }

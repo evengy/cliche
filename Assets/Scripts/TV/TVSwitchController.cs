@@ -10,6 +10,8 @@ namespace Assets.Scripts.TV
         [SerializeField] PickableObject tvSwitchPrefab;
         [SerializeField] Pin[] pins;
         bool instantiated;
+        bool usable;
+        PickableObject tvSwitch;
         // Use this for initialization
         void Start()
         {
@@ -23,8 +25,14 @@ namespace Assets.Scripts.TV
             {
                 instantiated = true;
                 var pin = pins.First(p => !p.Opened).gameObject;
-                var tvSwitch = Instantiate(tvSwitchPrefab, pin.transform.localPosition, Quaternion.identity);
+                tvSwitch = Instantiate(tvSwitchPrefab, pin.transform.localPosition, Quaternion.identity);
                 tvSwitch.Reassign(pin);
+            }
+
+            if (!usable && instantiated && pins.Where(p => !p.Opened).Count() == 0)
+            {
+                tvSwitch.UI.gameObject.SetActive(true);
+                usable = true;
             }
         }
     }

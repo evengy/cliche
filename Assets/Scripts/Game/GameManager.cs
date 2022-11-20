@@ -36,14 +36,14 @@ namespace Assets.Scripts.Game
         void Update()
         {
             
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                State = GameState.GameOver;
-            }
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                State = GameState.GameComplete;
-            }
+            //if (Input.GetKeyDown(KeyCode.F))
+            //{
+            //    State = GameState.GameOver;
+            //}
+            //if (Input.GetKeyDown(KeyCode.G))
+            //{
+            //    State = GameState.GameComplete;
+            //}
             if (State.Equals(GameState.Menu))
             {
                 protagonist.SetActive(false);
