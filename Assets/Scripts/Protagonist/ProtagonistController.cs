@@ -3,6 +3,7 @@ using Assets.Scripts.Protagonist;
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProtagonistController : MonoBehaviour
@@ -32,32 +33,43 @@ public class ProtagonistController : MonoBehaviour
 
     void UpdateView()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        //if (Input.GetKeyDown(KeyCode.F1))
+        //{
+        //    // top rig
+        //    cinemachine.m_Orbits[0].m_Height = 12;
+        //    cinemachine.m_Orbits[0].m_Radius = 3;
+        //    // middle rig
+        //    cinemachine.m_Orbits[1].m_Height = 6;
+        //    cinemachine.m_Orbits[1].m_Radius = 10;
+        //    // buttom rig
+        //    cinemachine.m_Orbits[2].m_Height = 1;
+        //    cinemachine.m_Orbits[2].m_Radius = 5;
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.F3))
+        //{
+        //    // top rig
+        //    cinemachine.m_Orbits[0].m_Height = 12;
+        //    cinemachine.m_Orbits[0].m_Radius = 3;
+        //    // middle rig
+        //    cinemachine.m_Orbits[1].m_Height = 6;
+        //    cinemachine.m_Orbits[1].m_Radius = 10;
+        //    // buttom rig
+        //    cinemachine.m_Orbits[2].m_Height = 1;
+        //    cinemachine.m_Orbits[2].m_Radius = 5;
+
+        //    cinemachine.m_BindingMode = CinemachineTransposer.BindingMode.SimpleFollowWithWorldUp;
+        //}
+
+        if (Input.GetMouseButtonDown((int)MouseButton.Right))
         {
-            // top rig
-            cinemachine.m_Orbits[0].m_Height = 12;
-            cinemachine.m_Orbits[0].m_Radius = 3;
-            // middle rig
-            cinemachine.m_Orbits[1].m_Height = 6;
-            cinemachine.m_Orbits[1].m_Radius = 10;
-            // buttom rig
-            cinemachine.m_Orbits[2].m_Height = 1;
-            cinemachine.m_Orbits[2].m_Radius = 5;
+            cinemachine.m_XAxis.m_MaxSpeed = 300;
+            cinemachine.m_YAxis.m_MaxSpeed = 2;
         }
-
-        if (Input.GetKeyDown(KeyCode.F3))
+        if (Input.GetMouseButtonUp((int)MouseButton.Right))
         {
-            // top rig
-            cinemachine.m_Orbits[0].m_Height = 12;
-            cinemachine.m_Orbits[0].m_Radius = 3;
-            // middle rig
-            cinemachine.m_Orbits[1].m_Height = 6;
-            cinemachine.m_Orbits[1].m_Radius = 10;
-            // buttom rig
-            cinemachine.m_Orbits[2].m_Height = 1;
-            cinemachine.m_Orbits[2].m_Radius = 5;
-
-            cinemachine.m_BindingMode = CinemachineTransposer.BindingMode.SimpleFollowWithWorldUp;
+            cinemachine.m_XAxis.m_MaxSpeed = 0;
+            cinemachine.m_YAxis.m_MaxSpeed = 0;
         }
     }
 
@@ -88,25 +100,29 @@ public class ProtagonistController : MonoBehaviour
     }
     void Move()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        //if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W))
         {
             state = ProtagonistState.Move;
             this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
         }
 
-        if (Input.GetKey(KeyCode.DownArrow))
+        //if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S))
         {
             state = ProtagonistState.Move;
             this.transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        //if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
             state = ProtagonistState.Move;
             this.transform.Rotate(Vector3.up, -1 * movementSpeed);
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        //if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             state = ProtagonistState.Move;
             this.transform.Rotate(Vector3.up, 1 * movementSpeed);
@@ -179,6 +195,7 @@ public class ProtagonistController : MonoBehaviour
     {
         //UpdateView();
         Use();
+        UpdateView();
         Move();
         //GetScared();
         Animate();

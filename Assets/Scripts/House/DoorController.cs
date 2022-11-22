@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactive;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Scripts.House
@@ -14,6 +15,7 @@ namespace Assets.Scripts.House
         Quaternion doorRotation;
         Quaternion originRotation;
         Vector3 originPosition;
+        bool isOpened;
         // Start is called before the first frame update
         void Start()
         {
@@ -34,14 +36,16 @@ namespace Assets.Scripts.House
         // Update is called once per frame
         void Update()
         {
-            if (GetComponent<UIInteractions>().IsInteractive && Input.GetKey(KeyCode.D) && transform.rotation.eulerAngles.y < doorRotation.eulerAngles.y)  // TODO work on criteria
+            if (!isOpened && GetComponent<UIInteractions>().IsInteractive && Input.GetMouseButtonDown((int)MouseButton.Left))  // TODO work on criteria
             {
-                transform.RotateAround(hinge.transform.position, Vector3.up, Time.deltaTime * openSpeed);
+                transform.RotateAround(hinge.transform.position, Vector3.up, openAngle);
+                isOpened = true;
             }
-            if (GetComponent<UIInteractions>().IsInteractive &&  Input.GetKey(KeyCode.C))
+            else if (isOpened && GetComponent<UIInteractions>().IsInteractive && Input.GetMouseButtonDown((int)MouseButton.Left))
             {
                 transform.localPosition = originPosition;
                 transform.localRotation = originRotation;
+                isOpened = false;
             }
         }
     }
