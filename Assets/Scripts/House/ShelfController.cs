@@ -10,6 +10,16 @@ namespace Assets.Scripts.House
         [SerializeField] float movementSpeed = 2f;
         [SerializeField] float shelfSize = 0.8f;
         bool isOpened;
+        UIInteractions interactions;
+        private void Start()
+        {
+            interactions = GetComponent<UIInteractions>();
+            if (interactions != null)
+            {
+                return;
+            }
+            interactions = GetComponentInParent<UIInteractions>();
+        }
         void OpenShelf(GameObject shelf)
         {
             var current = shelf.transform.localPosition;
@@ -41,14 +51,15 @@ namespace Assets.Scripts.House
 
         void ShelfUpdate()
         {
-            if (!isOpened && GetComponentInParent<UIInteractions>().IsInteractive && Input.GetMouseButtonDown((int)MouseButton.Left))
+            if (!isOpened && interactions.IsInteractive && Input.GetMouseButtonDown((int)MouseButton.Left))
             {
                 isOpened = true;
             }
-            else if (isOpened && GetComponentInParent<UIInteractions>().IsInteractive && Input.GetMouseButtonDown((int)MouseButton.Left))
+            else if (isOpened && interactions.IsInteractive && Input.GetMouseButtonDown((int)MouseButton.Left))
             {
                 isOpened = false;
             }
+
             if (isOpened)
             {
                 OpenShelf(gameObject);

@@ -43,10 +43,9 @@ namespace Assets.Scripts.Interactive
             RaycastHit hit;
             if (isInReach && Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             {
-                Debug.Log(hit.transform.name);
-                if (hit.transform.name.Equals(highlight.gameObject.transform.name))
+                if (hit.transform.GetInstanceID().Equals(highlight.gameObject.transform.GetInstanceID()))
                 {
-                    Debug.Log(hit.transform.name);
+                    Debug.Log(hit.transform.GetInstanceID());
                     Debug.Log("hit");
                     isHighlighted = true;
                     highlight.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
