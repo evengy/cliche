@@ -128,7 +128,7 @@ namespace Assets.Scripts.UI
             }
             if (GameManager.Instance.State.Equals(GameState.Start))
             {
-
+                CreditsManager.Instance.isActive = false;
             }
             if (GameManager.Instance.State.Equals(GameState.Motivation))
             {
@@ -158,6 +158,7 @@ namespace Assets.Scripts.UI
             if (GameManager.Instance.State.Equals(GameState.Menu))
             {
                 //GameManager.Instance.State = GameState.Start;
+                CreditsManager.Instance.isActive = !CreditsManager.Instance.isActive;
             }
             if (GameManager.Instance.State.Equals(GameState.Start))
             {

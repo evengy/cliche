@@ -14,17 +14,17 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.02
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
+  m_AmbientSkyColor: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -5888,6 +5888,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87ee23c017f6d54881d06f5af4d9eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  credits:
+  - {fileID: 2100000, guid: 857c2bf41fcbeb845b2986633171a682, type: 2}
+  - {fileID: 2100000, guid: 26d1ebafeeeb45b419570bb566dcbdd6, type: 2}
+  - {fileID: 2100000, guid: 014840eb57cf79f4c9a4f37917dbd281, type: 2}
+  titleLayout: {fileID: 1052205398}
+  creditsLayout: {fileID: 444145241}
+  creditTimer: 10
+  isActive: 0
 --- !u!4 &155817492
 Transform:
   m_ObjectHideFlags: 0
@@ -7906,7 +7914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 10, z: -8}
+  m_FollowOffset: {x: 0, y: 6, z: -10}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -8854,7 +8862,7 @@ GameObject:
   - component: {fileID: 420245223}
   - component: {fileID: 420245222}
   m_Layer: 0
-  m_Name: FloorCell
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30380,7 +30388,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 582828444}
-  m_LocalRotation: {x: 0.18477446, y: 0.81289613, z: -0.35494906, w: 0.4231661}
+  m_LocalRotation: {x: 0.107010305, y: 0.8628626, z: -0.2055653, w: 0.4491769}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32503,7 +32511,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708233001}
-  m_LocalRotation: {x: 0.20002395, y: 0.79946613, z: -0.38424328, w: 0.41617483}
+  m_LocalRotation: {x: 0.123256, y: 0.854826, z: -0.23677309, w: 0.4449933}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32859,7 +32867,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 724755329}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 2.73}
+  m_LocalPosition: {x: 0, y: 1, z: 8}
   m_LocalScale: {x: 24, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33120,7 +33128,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -38048,10 +38056,10 @@ MonoBehaviour:
   m_BindingMode: 5
   m_SplineCurvature: 0.2
   m_Orbits:
-  - m_Height: 15
-    m_Radius: 10
   - m_Height: 10
-    m_Radius: 8
+    m_Radius: 5
+  - m_Height: 6
+    m_Radius: 10
   - m_Height: 5
     m_Radius: 5
   m_LegacyHeadingBias: 3.4028235e+38
@@ -38067,7 +38075,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777808771}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.5532084, y: 12, z: 21.588623}
+  m_LocalPosition: {x: -4.19151, y: 8, z: 22.735779}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -54767,8 +54775,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.19242084, y: 0.806323, z: -0.36963782, w: 0.41974434}
-  m_LocalPosition: {x: -2.5532084, y: 12, z: 21.588623}
+  m_LocalRotation: {x: 0.115141414, y: 0.8589913, z: -0.22118507, w: 0.44716164}
+  m_LocalPosition: {x: -4.19151, y: 8, z: 22.735779}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56135,7 +56143,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 500, y: 200}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1052205400
 MonoBehaviour:
@@ -66915,7 +66923,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1216083558
 Transform:
   m_ObjectHideFlags: 0
@@ -66924,7 +66932,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1216083557}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 6.05, z: 18}
+  m_LocalPosition: {x: 1, y: 5.95, z: 18}
   m_LocalScale: {x: 18, y: 0, z: 12}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -68454,7 +68462,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327690286}
-  m_LocalRotation: {x: 0.19242088, y: 0.80632305, z: -0.3696378, w: 0.41974437}
+  m_LocalRotation: {x: 0.115141414, y: 0.8589913, z: -0.22118506, w: 0.4471616}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -76137,7 +76145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 10, z: -8}
+  m_FollowOffset: {x: 0, y: 6, z: -10}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -84066,7 +84074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 10, z: -8}
+  m_FollowOffset: {x: 0, y: 6, z: -10}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -90178,7 +90186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openSpeed: 360
-  openAngle: 80
+  openAngle: 5
   hinge: {fileID: 255779455}
   positionState: 0
 --- !u!114 &2085332022
@@ -112158,7 +112166,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -112202,7 +112210,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
