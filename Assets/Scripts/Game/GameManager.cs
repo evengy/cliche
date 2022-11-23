@@ -34,7 +34,17 @@ namespace Assets.Scripts.Game
 
         // Update is called once per frame
         void Update()
-        {  
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                State = GameState.GameCompleted;
+            }
+
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                State = GameState.GameOver;
+            }
+
             if (State.Equals(GameState.Menu))
             {
                 protagonist.SetActive(false);
@@ -45,7 +55,8 @@ namespace Assets.Scripts.Game
                 protagonist.SetActive(true);
                 dummy.SetActive(false);
             }
-            if (State.Equals(GameState.Menu) || State.Equals(GameState.Motivation))
+
+            if (State.Equals(GameState.Menu)) // || State.Equals(GameState.Motivation))
             {
                 Camera.main.GetComponent<CinemachineBrain>().enabled = false;
 

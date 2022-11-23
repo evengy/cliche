@@ -8,7 +8,7 @@ namespace Assets.Scripts.Game
     {
         [SerializeField] AudioClip librarySound;
         [SerializeField] AudioClip hauntedTVSound;
-        [SerializeField] AudioClip creditsSound; // game complete
+        [SerializeField] AudioClip creditsSound; 
         [SerializeField] AudioClip menuSound;
         [SerializeField] AudioClip gameOverSound;
         AudioSource audioSource1;
@@ -25,6 +25,11 @@ namespace Assets.Scripts.Game
             isSource1 = true;
 
             DirectInit(menuSound);
+        }
+
+        public void RunCredits()
+        {
+            Swap(creditsSound);
         }
 
         void Swap(AudioClip audio)
@@ -97,7 +102,7 @@ namespace Assets.Scripts.Game
                 case GameState.GameOver:
                     Swap(gameOverSound);
                     break;
-                case GameState.GameComplete:
+                case GameState.GameCompleted:
                     Swap(creditsSound);
                     break;
                 case GameState.Wait:
@@ -105,6 +110,7 @@ namespace Assets.Scripts.Game
                     break;
                 case GameState.Continue:
                     break;
+                
                 default:
                     break;
             }

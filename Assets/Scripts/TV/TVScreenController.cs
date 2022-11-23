@@ -90,7 +90,7 @@ public class TVScreenController : MonoBehaviour
     void FollowProtagonist()
     {
 
-        if (GameManager.Instance.State.Equals(GameState.GameComplete)) return;
+        if (GameManager.Instance.State.Equals(GameState.GameCompleted)) return;
         if (GameManager.Instance.State.Equals(GameState.GameOver)) return;
 
         var from = transform.position;
@@ -117,7 +117,7 @@ public class TVScreenController : MonoBehaviour
                     //ProtagonistUIController.Instance.AddToChat(batteryLowMessage, PositionState.Left); // placeholder
                     state = TVState.Off;
                     screen.SetActive(false);
-                    GameManager.Instance.State = GameState.GameComplete;
+                    GameManager.Instance.State = GameState.GameCompleted;
                 }
                 //else
                 //{

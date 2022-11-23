@@ -55,58 +55,7 @@ namespace Assets.Scripts.UI
 
         void ApplyUI()
         {
-
-            if (GameManager.Instance.State.Equals(GameState.Menu))
-            {
-                endgameLayout.SetActive(false);
-                //button2.gameObject.SetActive(false);
-            }
-            if (GameManager.Instance.State.Equals(GameState.Start))
-            {
-                endgameLayout.SetActive(false);
-                options.SetActive(false);
-                mainLayout.SetActive(false);
-            }
-            if (GameManager.Instance.State.Equals(GameState.Motivation))
-            {
-                button1.GetComponent<Image>().material = firstMotivationMessage;
-                button2.GetComponent<Image>().material = secondMotivationMessage;
-
-                endgameLayout.SetActive(false);
-                options.SetActive(true);
-                mainLayout.SetActive(false);
-            }
-            if (GameManager.Instance.State.Equals(GameState.Challenge))
-            {
-                endgameLayout.SetActive(false);
-                options.SetActive(false);
-                mainLayout.SetActive(false);
-            }
-            if (GameManager.Instance.State.Equals(GameState.Continue))
-            {
-                endgameLayout.SetActive(false);
-                options.SetActive(false);
-                mainLayout.SetActive(false);
-            }
-            if (GameManager.Instance.State.Equals(GameState.Wait))
-            {
-                endgameLayout.SetActive(false);
-                options.SetActive(false);
-                mainLayout.SetActive(false);
-            }
-            if (GameManager.Instance.State.Equals(GameState.GameOver))
-            {
-
-                button1.GetComponent<Image>().material = tryAgain; // back to menu
-                button2.gameObject.SetActive(false);
-                button3.GetComponent<Image>().material = exit; // back to menu
-                endgameTitle.GetComponent<Image>().material = gameOver;
-
-                options.SetActive(true);
-                endgameLayout.SetActive(true);
-                mainLayout.SetActive(false);
-            }
-            if (GameManager.Instance.State.Equals(GameState.GameComplete))
+            if (GameManager.Instance.State.Equals(GameState.GameCompleted))
             {
                 button1.GetComponent<Image>().material = backToMenu; // back to menu
                 button2.gameObject.SetActive(false);
@@ -116,6 +65,63 @@ namespace Assets.Scripts.UI
                 options.SetActive(true);
                 endgameLayout.SetActive(true);
                 mainLayout.SetActive(false);
+
+                CreditsManager.Instance.isActive = true;
+            }
+            else
+            {
+                CreditsManager.Instance.isActive = false;
+
+                if (GameManager.Instance.State.Equals(GameState.Menu))
+                {
+                    endgameLayout.SetActive(false);
+                    //button2.gameObject.SetActive(false);
+                }
+                if (GameManager.Instance.State.Equals(GameState.Start))
+                {
+                    endgameLayout.SetActive(false);
+                    options.SetActive(false);
+                    mainLayout.SetActive(false);
+                }
+                if (GameManager.Instance.State.Equals(GameState.Motivation))
+                {
+                    button1.GetComponent<Image>().material = firstMotivationMessage;
+                    button2.GetComponent<Image>().material = secondMotivationMessage;
+
+                    endgameLayout.SetActive(false);
+                    options.SetActive(true);
+                    mainLayout.SetActive(false);
+                }
+                if (GameManager.Instance.State.Equals(GameState.Challenge))
+                {
+                    endgameLayout.SetActive(false);
+                    options.SetActive(false);
+                    mainLayout.SetActive(false);
+                }
+                if (GameManager.Instance.State.Equals(GameState.Continue))
+                {
+                    endgameLayout.SetActive(false);
+                    options.SetActive(false);
+                    mainLayout.SetActive(false);
+                }
+                if (GameManager.Instance.State.Equals(GameState.Wait))
+                {
+                    endgameLayout.SetActive(false);
+                    options.SetActive(false);
+                    mainLayout.SetActive(false);
+                }
+                if (GameManager.Instance.State.Equals(GameState.GameOver))
+                {
+
+                    button1.GetComponent<Image>().material = tryAgain; // back to menu
+                    button2.gameObject.SetActive(false);
+                    button3.GetComponent<Image>().material = exit; // back to menu
+                    endgameTitle.GetComponent<Image>().material = gameOver;
+
+                    options.SetActive(true);
+                    endgameLayout.SetActive(true);
+                    mainLayout.SetActive(false);
+                }
             }
         }
 
@@ -128,7 +134,7 @@ namespace Assets.Scripts.UI
             }
             if (GameManager.Instance.State.Equals(GameState.Start))
             {
-                CreditsManager.Instance.isActive = false;
+               
             }
             if (GameManager.Instance.State.Equals(GameState.Motivation))
             {
@@ -146,7 +152,7 @@ namespace Assets.Scripts.UI
             {
                 SceneManager.LoadScene("SampleScene");
             }
-            if (GameManager.Instance.State.Equals(GameState.GameComplete))
+            if (GameManager.Instance.State.Equals(GameState.GameCompleted))
             {
                 SceneManager.LoadScene("SampleScene");
             }
@@ -158,7 +164,6 @@ namespace Assets.Scripts.UI
             if (GameManager.Instance.State.Equals(GameState.Menu))
             {
                 //GameManager.Instance.State = GameState.Start;
-                CreditsManager.Instance.isActive = !CreditsManager.Instance.isActive;
             }
             if (GameManager.Instance.State.Equals(GameState.Start))
             {
@@ -180,7 +185,7 @@ namespace Assets.Scripts.UI
             {
 
             }
-            if (GameManager.Instance.State.Equals(GameState.GameComplete))
+            if (GameManager.Instance.State.Equals(GameState.GameCompleted))
             {
 
             }
