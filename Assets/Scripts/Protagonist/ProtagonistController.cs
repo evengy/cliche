@@ -1,3 +1,4 @@
+using Assets.Scripts.Game;
 using Assets.Scripts.Interactive;
 using Assets.Scripts.Protagonist;
 using Cinemachine;
@@ -21,7 +22,7 @@ public class ProtagonistController : MonoBehaviour
     [SerializeField] AudioClip[] footsteps;
 
     [SerializeField] CinemachineFreeLook cinemachine;
-
+    bool menuView;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,38 @@ public class ProtagonistController : MonoBehaviour
         animator = gameObject.GetComponentInChildren<Animator>(); // TODO refactor
         state = ProtagonistState.Idle;
         audioSource = gameObject.GetComponent<AudioSource>();
+        menuView = true;
+    }
+
+    void ChangeCameraView(GameState state)
+    {
+        if (menuView && !state.Equals(GameState.Menu)) // state changed FROM menu
+        {
+            menuView = false;
+            // top rig
+            cinemachine.m_Orbits[0].m_Height = 3.25f;
+            cinemachine.m_Orbits[0].m_Radius = 5;
+            // middle rig
+            cinemachine.m_Orbits[1].m_Height = 3;
+            cinemachine.m_Orbits[1].m_Radius = 6;
+            // buttom rig
+            cinemachine.m_Orbits[2].m_Height = 2.75f;
+            cinemachine.m_Orbits[2].m_Radius = 7;
+        }
+
+        else if (!menuView && state.Equals(GameState.Menu)) // state changed TO menu
+        {
+            menuView = true;
+            // top rig
+            cinemachine.m_Orbits[0].m_Height = 4;
+            cinemachine.m_Orbits[0].m_Radius = 8;
+            // middle rig
+            cinemachine.m_Orbits[1].m_Height = 3.5f;
+            cinemachine.m_Orbits[1].m_Radius = 12;
+            // buttom rig
+            cinemachine.m_Orbits[2].m_Height = 3;
+            cinemachine.m_Orbits[2].m_Radius = 6;
+        }
     }
 
     void UpdateView()
@@ -193,13 +226,16 @@ public class ProtagonistController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //UpdateView();
-        Use();
         UpdateView();
-        Move();
-        //GetScared();
-        Animate();
-        PlaySounds();
+        ChangeCameraView(GameManager.Instance.State);
+        Use();
+        if (!GameManager.Instance.State.Equals(GameState.GameCompleted) && !GameManager.Instance.State.Equals(GameState.GameOver))
+        {
+            Move();
+            //GetScared();
+        }
+            Animate();
+            PlaySounds();
         state = ProtagonistState.Idle;
     }
 }

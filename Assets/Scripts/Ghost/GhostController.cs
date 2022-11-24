@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Game;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -9,11 +10,12 @@ namespace Assets.Scripts.Ghost
     public class GhostController : MonoBehaviour
     {
         [SerializeField] SwappableObject[] swappables;
-
+        float timer;
+        float ghostPeriod = 5f;
         // Use this for initialization
         void Start()
         {
-
+            timer = 0f;
         }
 
         void Swap(SwappableObject[] swappables)
@@ -62,14 +64,16 @@ namespace Assets.Scripts.Ghost
         // Update is called once per frame
         void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.S))
-            //{
-            //    Swap(swappables);
-            //    //if (swappables.Where(s => s.CanBeSwapped).Count() > 1)
-            //    //{
-            //    //    Swap(swappables.Where(s => s.CanBeSwapped).ToArray());
-            //    //}
-            //}
+            if (GameManager.Instance.State.Equals(GameState.Challenge) && timer > ghostPeriod)
+            {
+                timer = 0f;
+                //Swap(swappables);
+                if (swappables.Where(s => s.CanBeSwapped).Count() > 1)
+                {
+                    Swap(swappables.Where(s => s.CanBeSwapped).ToArray());
+                }
+            }
+            timer += Time.deltaTime;
         }
     }
 }

@@ -54,6 +54,9 @@ namespace Assets.Scripts.Game
             {
                 protagonist.SetActive(true);
                 dummy.SetActive(false);
+
+               
+
             }
 
             if (State.Equals(GameState.Menu)) // || State.Equals(GameState.Motivation))
@@ -65,6 +68,7 @@ namespace Assets.Scripts.Game
             {
                 Camera.main.GetComponent<CinemachineBrain>().enabled = true;
             }
+
         }
     }
 }

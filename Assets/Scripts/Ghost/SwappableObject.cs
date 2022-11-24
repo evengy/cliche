@@ -7,9 +7,9 @@ namespace Assets.Scripts.Ghost
     {
         public bool CanBeSwapped { get; private set; }
 
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.tag.Equals("Camera"))
+            if (other.tag.Equals("GhostView"))
             {
                 CanBeSwapped = true;
             }
@@ -17,9 +17,17 @@ namespace Assets.Scripts.Ghost
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.tag.Equals("Camera"))
+            if (other.tag.Equals("GhostView"))
             {
                 CanBeSwapped = false;
+            }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.tag.Equals("GhostView"))
+            {
+                CanBeSwapped = true;
             }
         }
     }
