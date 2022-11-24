@@ -40,7 +40,7 @@ namespace Assets.Scripts.UI
         {
             button1 = options.GetComponentsInChildren<Button>()[0];
             button2 = options.GetComponentsInChildren<Button>()[1];
-            button3 = options.GetComponentsInChildren<Button>()[2];
+            button3 = options.GetComponentsInChildren<Button>()[2]; 
 
             button1.onClick.AddListener(FirstOption);
             button2.onClick.AddListener(SecondOption);

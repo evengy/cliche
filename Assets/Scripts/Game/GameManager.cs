@@ -35,15 +35,15 @@ namespace Assets.Scripts.Game
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                State = GameState.GameCompleted;
-            }
+            //if (Input.GetKeyDown(KeyCode.F))
+            //{
+            //    State = GameState.GameCompleted;
+            //}
 
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                State = GameState.GameOver;
-            }
+            //if (Input.GetKeyDown(KeyCode.G))
+            //{
+            //    State = GameState.GameOver;
+            //}
 
             if (State.Equals(GameState.Menu))
             {

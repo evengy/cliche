@@ -76,23 +76,23 @@
     <Compile Include="Assets\Scripts\TV\TVInteractions.cs" />
     <Compile Include="Assets\Scripts\Helpers\CameraShake.cs" />
     <Compile Include="Assets\Scripts\Ghost\SwappableObject.cs" />
+    <Compile Include="Assets\Scripts\Helpers\MaterialPreset.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistInteractions.cs" />
     <Compile Include="Assets\Scripts\Game\CreditsManager.cs" />
     <Compile Include="Assets\Scripts\Interactive\Pin.cs" />
     <Compile Include="Assets\Scripts\Interactive\PickableObject.cs" />
     <Compile Include="Assets\Scripts\Helpers\PositionState.cs" />
     <Compile Include="Assets\Scripts\TV\TVScreenController.cs" />
+    <Compile Include="Assets\Scripts\Game\GameDifficulty.cs" />
     <Compile Include="Assets\Scripts\Drawer\DrawerState.cs" />
     <Compile Include="Assets\Scripts\Game\MenuManager.cs" />
     <Compile Include="Assets\Scripts\TV\TVState.cs" />
     <Compile Include="Assets\Scripts\Helpers\TextureMap.cs" />
+    <Compile Include="Assets\Scripts\Game\SettingsManager.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistState.cs" />
     <Compile Include="Assets\Scripts\Interactive\TriggerOnProtagonist.cs" />
     <Compile Include="Assets\Scripts\Interactive\CanvasRotationController.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Game\SettingsManager.cs" />
-    <Compile Include="Assets\Scripts\Game\GameDifficulty.cs" />
-    <Compile Include="Assets\Scripts\Helpers\MaterialPreset.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
