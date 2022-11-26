@@ -27,6 +27,9 @@ public class TVScreenController : MonoBehaviour
     [SerializeField] Material hintMessage;
     [SerializeField] Material batteryLowMessage;
 
+    [SerializeField] AudioClip dropSound;
+    [SerializeField] AudioClip crawlSound;
+    AudioSource TVsource;
     Rigidbody rb;
     bool awake;
 
@@ -37,6 +40,7 @@ public class TVScreenController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        TVsource = GetComponent<AudioSource>();
         animator = gameObject.GetComponent<Animator>(); // TODO refactor
         interactions = GetComponent<TVInteractions>();
         state = TVState.Idle;
@@ -59,7 +63,7 @@ public class TVScreenController : MonoBehaviour
             //GameManager.Instance.State = GameState.Motivation;
             timer = 0;
             motivationSoundSource.loop = false;
-            motivationSoundSource.clip = motivationSounds[Random.Range(0,motivationSounds.Length)]; // random sound from available
+            motivationSoundSource.clip = motivationSounds[Random.Range(0,motivationSounds.Length)]; 
             motivationSoundSource.Play();
             ProtagonistUIController.Instance.AddToChat(motivationMessage, PositionState.Left); // TODO random
             repeat = Random.Range(minMotivationRepeat, maxMotivationRepeat);
@@ -71,6 +75,7 @@ public class TVScreenController : MonoBehaviour
         if (!awake && awakeTrigger.Triggered)
         {
             state = TVState.Awake;
+            TVsource.clip = dropSound; TVsource.Play();
             GameManager.Instance.State = GameState.Wait;
             awake = true;
         }
@@ -81,6 +86,7 @@ public class TVScreenController : MonoBehaviour
         if (!state.Equals(TVState.Haunted) && animator.GetCurrentAnimatorStateInfo(0).IsName("Haunted_TV_Crawl"))
         {
             state = TVState.Haunted;
+            TVsource.clip = crawlSound; TVsource.Play();
             GameManager.Instance.State = GameState.Challenge;
             ProtagonistUIController.Instance.AddToChat(hintMessage, PositionState.Left);
             rb.isKinematic = false;

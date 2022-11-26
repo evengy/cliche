@@ -2,6 +2,7 @@
 using Assets.Scripts.Interactive;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 namespace Assets.Scripts.House
 {
@@ -11,8 +12,13 @@ namespace Assets.Scripts.House
         [SerializeField] float shelfSize = 0.8f;
         bool isOpened;
         UIInteractions interactions;
+        AudioSource source;
+        [SerializeField] AudioClip sound;
         private void Start()
         {
+            source = gameObject.AddComponent<AudioSource>();
+            source.loop = false;
+            source.clip = sound;
             interactions = GetComponent<UIInteractions>();
             if (interactions != null)
             {
@@ -53,10 +59,12 @@ namespace Assets.Scripts.House
         {
             if (!isOpened && interactions.IsInteractive && Input.GetMouseButtonDown((int)MouseButton.Left))
             {
+                source.Play();
                 isOpened = true;
             }
             else if (isOpened && interactions.IsInteractive && Input.GetMouseButtonDown((int)MouseButton.Left))
             {
+                source.Play();
                 isOpened = false;
             }
 

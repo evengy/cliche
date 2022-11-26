@@ -16,9 +16,14 @@ namespace Assets.Scripts.House
         Quaternion originRotation;
         Vector3 originPosition;
         bool isOpened;
+        AudioSource source;
+        [SerializeField] AudioClip doorSound;
         // Start is called before the first frame update
         void Start()
         {
+            source = gameObject.AddComponent<AudioSource>();
+            source.loop = false;
+            source.clip = doorSound;
             originPosition = transform.localPosition;
             originRotation = transform.localRotation;
 
@@ -39,12 +44,14 @@ namespace Assets.Scripts.House
             if (!isOpened && GetComponent<UIInteractions>().IsInteractive && Input.GetMouseButtonDown((int)MouseButton.Left))  // TODO work on criteria
             {
                 transform.RotateAround(hinge.transform.position, Vector3.up, openAngle);
+                source.Play();
                 isOpened = true;
             }
             else if (isOpened && GetComponent<UIInteractions>().IsInteractive && Input.GetMouseButtonDown((int)MouseButton.Left))
             {
                 transform.localPosition = originPosition;
                 transform.localRotation = originRotation;
+                source.Play();
                 isOpened = false;
             }
         }
