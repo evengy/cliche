@@ -14,7 +14,7 @@ namespace Assets.Scripts.Game
         float timer;
         private void Start()
         {
-            timer = 0;
+            timer = 9.2f;
         }
         void Update()
         {

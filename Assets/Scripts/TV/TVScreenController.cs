@@ -23,19 +23,21 @@ public class TVScreenController : MonoBehaviour
     [SerializeField] TriggerOnProtagonist awakeTrigger;
 
     [SerializeField] AudioClip[] motivationSounds;
-    [SerializeField] Material motivationMessage; 
+    [SerializeField] Material[] motivationMessages;
     [SerializeField] Material hintMessage;
     [SerializeField] Material batteryLowMessage;
 
-    [SerializeField] AudioClip dropSound;
+    [SerializeField] AudioClip[] dropSounds;
     [SerializeField] AudioClip crawlSound;
     AudioSource TVsource;
     Rigidbody rb;
     bool awake;
+    [SerializeField] Transform awakeView;
 
     [SerializeField] AudioSource motivationSoundSource;
 
-    float timer;
+    float awakeTimer;
+    float motivationTimer;
     float repeat;
     // Start is called before the first frame update
     void Start()
@@ -48,36 +50,54 @@ public class TVScreenController : MonoBehaviour
         rb.isKinematic = true;
 
         //source = gameObject.AddComponent<AudioSource>();
-        repeat = Random.Range(minMotivationRepeat,maxMotivationRepeat);
+        repeat = Random.Range(minMotivationRepeat, maxMotivationRepeat);
     }
 
     void Motivation() // TODO refactor
     {
         if (GameManager.Instance.State.Equals(GameState.Menu))
         {
-            timer = 0; // timer starts only when game starts
+            motivationTimer = 0; // timer starts only when game starts
         }
 
-        if ((GameManager.Instance.State.Equals(GameState.Start) || GameManager.Instance.State.Equals(GameState.Continue)) && timer > repeat)
+        if ((GameManager.Instance.State.Equals(GameState.Start) || GameManager.Instance.State.Equals(GameState.Continue)) && motivationTimer > repeat)
         {
             //GameManager.Instance.State = GameState.Motivation;
-            timer = 0;
+            motivationTimer = 0;
             motivationSoundSource.loop = false;
-            motivationSoundSource.clip = motivationSounds[Random.Range(0,motivationSounds.Length)]; 
+            motivationSoundSource.clip = motivationSounds[Random.Range(0, motivationSounds.Length)];
             motivationSoundSource.Play();
-            ProtagonistUIController.Instance.AddToChat(motivationMessage, PositionState.Left); // TODO random
+            ProtagonistUIController.Instance.AddToChat(motivationMessages[Random.Range(0,motivationMessages.Length)], PositionState.Left); // TODO random
             repeat = Random.Range(minMotivationRepeat, maxMotivationRepeat);
         }
-        timer += Time.deltaTime;
+        motivationTimer += Time.deltaTime;
     }
     void UpdateState()
     {
         if (!awake && awakeTrigger.Triggered)
         {
+            awakeTimer = 0;
             state = TVState.Awake;
-            TVsource.clip = dropSound; TVsource.Play();
+            CameraViewManager.Instance.AttachViewTo(awakeView);
             GameManager.Instance.State = GameState.Wait;
             awake = true;
+        }
+        if (state.Equals(TVState.Awake))
+        {
+            awakeTimer += Time.deltaTime;
+            if (!TVsource.isPlaying && awakeTimer > 0.1f && awakeTimer < 0.4f)
+            {
+                TVsource.clip = dropSounds[0]; TVsource.loop = false; TVsource.Play();
+            }
+            
+            if (!TVsource.isPlaying && awakeTimer > 0.4f && awakeTimer < 1f)
+            {
+                TVsource.clip = dropSounds[1]; TVsource.loop = false; TVsource.Play();
+            }
+            if (!TVsource.isPlaying && awakeTimer > 1.5f && awakeTimer < 2f)
+            {
+                TVsource.clip = dropSounds[2]; TVsource.loop = false; TVsource.Play();
+            }
         }
         if (grabTrigger.Triggered)
         {
@@ -86,7 +106,10 @@ public class TVScreenController : MonoBehaviour
         if (!state.Equals(TVState.Haunted) && animator.GetCurrentAnimatorStateInfo(0).IsName("Haunted_TV_Crawl"))
         {
             state = TVState.Haunted;
-            TVsource.clip = crawlSound; TVsource.Play();
+            CameraViewManager.Instance.Release();
+
+            //TVsource.clip = dropSounds[2]; TVsource.loop = false; TVsource.Play();
+            //TVsource.clip = crawlSound; TVsource.Play();
             GameManager.Instance.State = GameState.Challenge;
             ProtagonistUIController.Instance.AddToChat(hintMessage, PositionState.Left);
             rb.isKinematic = false;

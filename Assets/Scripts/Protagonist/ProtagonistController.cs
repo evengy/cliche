@@ -22,6 +22,13 @@ public class ProtagonistController : MonoBehaviour
     [SerializeField] AudioClip[] footsteps;
 
     [SerializeField] CinemachineFreeLook cinemachine;
+    [SerializeField] Material defaultFace;
+    [SerializeField] Material defaultBlink;
+    [SerializeField] Material scaredFace;
+    [SerializeField] Material scaredBlink;
+
+    [SerializeField] GameObject Face;
+    [SerializeField] GameObject Blink;
     bool menuView;
     // Start is called before the first frame update
     void Start()
@@ -31,6 +38,20 @@ public class ProtagonistController : MonoBehaviour
         state = ProtagonistState.Idle;
         audioSource = gameObject.GetComponent<AudioSource>();
         menuView = true;
+    }
+
+    void UpdateFaceExpressions()
+    {
+        if (GameManager.Instance.State.Equals(GameState.Challenge))
+        {
+            Face.GetComponent<MeshRenderer>().material = scaredFace;
+            Blink.GetComponent<MeshRenderer>().material = scaredBlink;
+        }
+        if (GameManager.Instance.State.Equals(GameState.GameCompleted))
+        {
+            Face.GetComponent<MeshRenderer>().material = defaultFace;
+            Blink.GetComponent<MeshRenderer>().material = defaultBlink;
+        }
     }
 
     void ChangeCameraView(GameState state)
@@ -66,43 +87,70 @@ public class ProtagonistController : MonoBehaviour
 
     void UpdateView()
     {
-        //if (Input.GetKeyDown(KeyCode.F1))
-        //{
-        //    // top rig
-        //    cinemachine.m_Orbits[0].m_Height = 12;
-        //    cinemachine.m_Orbits[0].m_Radius = 3;
-        //    // middle rig
-        //    cinemachine.m_Orbits[1].m_Height = 6;
-        //    cinemachine.m_Orbits[1].m_Radius = 10;
-        //    // buttom rig
-        //    cinemachine.m_Orbits[2].m_Height = 1;
-        //    cinemachine.m_Orbits[2].m_Radius = 5;
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.F3))
-        //{
-        //    // top rig
-        //    cinemachine.m_Orbits[0].m_Height = 12;
-        //    cinemachine.m_Orbits[0].m_Radius = 3;
-        //    // middle rig
-        //    cinemachine.m_Orbits[1].m_Height = 6;
-        //    cinemachine.m_Orbits[1].m_Radius = 10;
-        //    // buttom rig
-        //    cinemachine.m_Orbits[2].m_Height = 1;
-        //    cinemachine.m_Orbits[2].m_Radius = 5;
-
-        //    cinemachine.m_BindingMode = CinemachineTransposer.BindingMode.SimpleFollowWithWorldUp;
-        //}
-
-        if (Input.GetMouseButtonDown((int)MouseButton.Right))
-        {
-            cinemachine.m_XAxis.m_MaxSpeed = 300;
-            cinemachine.m_YAxis.m_MaxSpeed = 2;
-        }
-        if (Input.GetMouseButtonUp((int)MouseButton.Right))
+        if (GameManager.Instance.State.Equals(GameState.Wait))
         {
             cinemachine.m_XAxis.m_MaxSpeed = 0;
             cinemachine.m_YAxis.m_MaxSpeed = 0;
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown((int)MouseButton.Left))
+            {
+                cinemachine.m_XAxis.m_MaxSpeed = 300;
+                cinemachine.m_YAxis.m_MaxSpeed = 2;
+
+            }
+            else if (Input.GetMouseButtonUp((int)MouseButton.Left))
+            {
+                cinemachine.m_XAxis.m_MaxSpeed = 0;
+                cinemachine.m_YAxis.m_MaxSpeed = 0;
+            }
+        }
+    }
+
+    void UpdateViewAndRotate()
+    {
+        if (GameManager.Instance.State.Equals(GameState.Wait))
+        {
+            cinemachine.m_XAxis.m_MaxSpeed = 0;
+            cinemachine.m_YAxis.m_MaxSpeed = 0;
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown((int)MouseButton.Right))
+            {
+                cinemachine.m_XAxis.m_MaxSpeed = 300;
+                cinemachine.m_YAxis.m_MaxSpeed = 2;
+
+            }
+            else if (Input.GetMouseButtonUp((int)MouseButton.Right))
+            {
+                cinemachine.m_XAxis.m_MaxSpeed = 0;
+                cinemachine.m_YAxis.m_MaxSpeed = 0;
+            }
+            if (Input.GetMouseButton((int)MouseButton.Right)
+                && !GameManager.Instance.State.Equals(GameState.GameOver)
+                && !GameManager.Instance.State.Equals(GameState.GameCompleted))
+            {
+                var angleCorrection = 0f;
+                if (Input.GetKey(KeyCode.A))
+                {
+                    angleCorrection = -30;
+                }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    angleCorrection = 30;
+                }
+                if (Input.GetKey(KeyCode.S))
+                {
+                    angleCorrection *= -1;
+                }
+                float cameraY = Camera.main.gameObject.transform.rotation.eulerAngles.y;
+                var currentEuler = this.transform.rotation.eulerAngles;
+                currentEuler.Set(0, cameraY + 180 + angleCorrection, 0);
+                this.transform.localRotation = Quaternion.Euler(currentEuler);
+
+            }
         }
     }
 
@@ -133,11 +181,33 @@ public class ProtagonistController : MonoBehaviour
     }
     void Move()
     {
+
         //if (Input.GetKey(KeyCode.UpArrow))
         if (Input.GetKey(KeyCode.W))
         {
             state = ProtagonistState.Move;
-            this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
+            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+            {
+                this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
+            }
+            else
+            {
+                this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed/2);
+
+            }
+
+            //if (Input.GetMouseButtonDown((int)MouseButton.Right))
+            //{
+            //    cinemachine.m_XAxis.m_MaxSpeed = 300;
+            //    cinemachine.m_YAxis.m_MaxSpeed = 2;
+
+            //}
+            //else if (Input.GetMouseButtonUp((int)MouseButton.Right))
+            //{
+            //    cinemachine.m_XAxis.m_MaxSpeed = 0;
+            //    cinemachine.m_YAxis.m_MaxSpeed = 0;
+            //}
+
         }
 
         //if (Input.GetKey(KeyCode.DownArrow))
@@ -152,6 +222,14 @@ public class ProtagonistController : MonoBehaviour
         {
             state = ProtagonistState.Move;
             this.transform.Rotate(Vector3.up, -1 * movementSpeed);
+            if (Input.GetMouseButton((int)MouseButton.Right))
+            {
+                if (!Input.GetKeyDown(KeyCode.W))
+                {
+                    this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed / 3);
+                }
+                this.transform.Translate(Vector3.right * Time.deltaTime * movementSpeed / 3);
+            }
         }
 
         //if (Input.GetKey(KeyCode.RightArrow))
@@ -159,6 +237,14 @@ public class ProtagonistController : MonoBehaviour
         {
             state = ProtagonistState.Move;
             this.transform.Rotate(Vector3.up, 1 * movementSpeed);
+            if (Input.GetMouseButton((int)MouseButton.Right))
+            {
+                if (!Input.GetKeyDown(KeyCode.W))
+                {
+                    this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed / 3);
+                }
+                this.transform.Translate(Vector3.left * Time.deltaTime * movementSpeed / 3);
+            }
         }
 
         if (!state.Equals(ProtagonistState.Jump) && interactions.CanJump && Input.GetKeyDown(KeyCode.Space))
@@ -170,6 +256,8 @@ public class ProtagonistController : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody>().AddForce(Vector2.down * jumpForce / 2, (ForceMode)ForceMode2D.Impulse);
         }
+
+
     }
 
     void Animate()
@@ -226,16 +314,21 @@ public class ProtagonistController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateView();
+        UpdateFaceExpressions();
+
+        UpdateView(); // left mouse click
+        UpdateViewAndRotate(); // right mouse click
         ChangeCameraView(GameManager.Instance.State);
         Use();
-        if (!GameManager.Instance.State.Equals(GameState.GameCompleted) && !GameManager.Instance.State.Equals(GameState.GameOver))
+        if (!GameManager.Instance.State.Equals(GameState.GameCompleted)
+            && !GameManager.Instance.State.Equals(GameState.GameOver)
+            && !GameManager.Instance.State.Equals(GameState.Wait))
         {
             Move();
             //GetScared();
         }
-            Animate();
-            PlaySounds();
+        Animate();
+        PlaySounds();
         state = ProtagonistState.Idle;
     }
 }

@@ -10,14 +10,21 @@ namespace Assets.Scripts.Ghost
     public class GhostController : MonoBehaviour
     {
         [SerializeField] SwappableObject[] swappables;
-        float timer;
+        [SerializeField] Light lampLight;
+        float swapTimer;
+        float blinkTimer;
         float ghostPeriod = 5f;
+        float blinkPeriod = 0.5f;
         // Use this for initialization
         void Start()
         {
-            timer = 0f;
+            swapTimer = 0f;
         }
-
+        void Blink()
+        {
+            blinkPeriod = Random.Range(0, 0.5f);
+            lampLight.enabled = !lampLight.enabled;
+        }
         void Swap(SwappableObject[] swappables)
         {
             var indexer = new int[swappables.Length];
@@ -41,13 +48,13 @@ namespace Assets.Scripts.Ghost
 
                 if (i + 1 < swappables.Length)
                 {
-                    indexer[i] = i+1;
+                    indexer[i] = i + 1;
                 }
                 else
                 {
                     indexer[i] = 0;
                 }
-                
+
             }
 
             for (int i = 0; i < swappables.Length; i++)
@@ -55,7 +62,7 @@ namespace Assets.Scripts.Ghost
                 float y = swappables[i].gameObject.transform.localPosition.y; // save current Y
 
                 swappables[i].gameObject.transform.localPosition = new Vector3(positions[indexer[i]].x, y, positions[indexer[i]].z);
-                
+
                 swappables[i].gameObject.transform.rotation = rotations[indexer[i]];
             }
 
@@ -64,16 +71,22 @@ namespace Assets.Scripts.Ghost
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.Instance.State.Equals(GameState.Challenge) && timer > ghostPeriod)
+            if (GameManager.Instance.State.Equals(GameState.Challenge) && swapTimer > ghostPeriod)
             {
-                timer = 0f;
+                swapTimer = 0f;
                 //Swap(swappables);
                 if (swappables.Where(s => s.CanBeSwapped).Count() > 1)
                 {
                     Swap(swappables.Where(s => s.CanBeSwapped).ToArray());
                 }
             }
-            timer += Time.deltaTime;
+            swapTimer += Time.deltaTime;
+            if (GameManager.Instance.State.Equals(GameState.Challenge) && blinkTimer > blinkPeriod)
+            {
+                blinkTimer = 0f;
+                Blink();
+            }
+            blinkTimer += Time.deltaTime;
         }
     }
 }

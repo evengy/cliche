@@ -11,11 +11,12 @@ namespace Assets.Scripts.Interactive
     {
         [SerializeField] GameObject UI;
         [SerializeField] GameObject highlight;
+        [SerializeField] bool highlightable = true;
         int layerMask;
 
         private bool isInReach;
         private bool isHighlighted;
-        public bool IsInteractive => isHighlighted;
+        public bool IsInteractive => isHighlighted || (isInReach && !highlightable);
 
         // Use this for initialization
         void Start()
@@ -26,7 +27,7 @@ namespace Assets.Scripts.Interactive
 
         void UIUpdate()
         {
-            if (isHighlighted)
+            if (isHighlighted || (isInReach && !highlightable))
             {
                 UI.SetActive(true);
             }
@@ -56,7 +57,7 @@ namespace Assets.Scripts.Interactive
         // Update is called once per frame
         void Update()
         {
-            if (highlight != null)
+            if (highlight != null && highlightable)
             {
                 HighlightUpdate();
             }

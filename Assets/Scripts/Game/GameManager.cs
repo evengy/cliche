@@ -10,6 +10,15 @@ namespace Assets.Scripts.Game
         [SerializeField] GameObject protagonist;
         [SerializeField] GameObject dummy;
         [SerializeField] GameObject debugLightSource;
+
+        [SerializeField] CinemachineFreeLook cinemachine;
+        // [SerializeField] GameObject menuView; // TODO
+        [SerializeField] GameObject protagonistView;
+        [SerializeField] GameObject tvAwakeView;
+
+        [SerializeField] Material whoTrunedOutTheLights;
+        // [SerializeField] GameObject gameCompletedView; // TODO
+        bool started;
         private GameState state;
         public GameState State
         {
@@ -30,6 +39,8 @@ namespace Assets.Scripts.Game
             State = GameState.Menu;
             debugLightSource.SetActive(false);
             RenderSettings.ambientIntensity = 0.5f;
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
+            //RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
         }
 
         // Update is called once per frame
@@ -44,6 +55,18 @@ namespace Assets.Scripts.Game
             //{
             //    State = GameState.GameOver;
             //}
+            //if (!started && State.Equals(GameState.Start))
+            //{
+            //    started = true;
+            //    RenderSettings.ambientIntensity = 0.5f;
+            //    RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
+            //    ProtagonistUIController.Instance.AddToChat(whoTrunedOutTheLights, PositionState.Left);
+            //}
+            if (GameManager.Instance.State.Equals(GameState.Wait))
+            {
+                cinemachine.LookAt = tvAwakeView.transform;
+                cinemachine.Follow = tvAwakeView.transform;
+            }
 
             if (State.Equals(GameState.Menu))
             {
@@ -54,9 +77,6 @@ namespace Assets.Scripts.Game
             {
                 protagonist.SetActive(true);
                 dummy.SetActive(false);
-
-               
-
             }
 
             if (State.Equals(GameState.Menu)) // || State.Equals(GameState.Motivation))
