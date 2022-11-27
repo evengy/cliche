@@ -145,6 +145,10 @@ public class ProtagonistController : MonoBehaviour
                 {
                     angleCorrection *= -1;
                 }
+                else if (!Input.GetKey(KeyCode.W))
+                {
+                    angleCorrection *= 2;
+                }
                 float cameraY = Camera.main.gameObject.transform.rotation.eulerAngles.y;
                 var currentEuler = this.transform.rotation.eulerAngles;
                 currentEuler.Set(0, cameraY + 180 + angleCorrection, 0);
@@ -186,65 +190,69 @@ public class ProtagonistController : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             state = ProtagonistState.Move;
+            //this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
             if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
             {
                 this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
             }
-            else
-            {
-                this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed/2);
-
-            }
-
-            //if (Input.GetMouseButtonDown((int)MouseButton.Right))
-            //{
-            //    cinemachine.m_XAxis.m_MaxSpeed = 300;
-            //    cinemachine.m_YAxis.m_MaxSpeed = 2;
-
-            //}
-            //else if (Input.GetMouseButtonUp((int)MouseButton.Right))
-            //{
-            //    cinemachine.m_XAxis.m_MaxSpeed = 0;
-            //    cinemachine.m_YAxis.m_MaxSpeed = 0;
-            //}
-
         }
 
         //if (Input.GetKey(KeyCode.DownArrow))
-        if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
         {
             state = ProtagonistState.Move;
-            this.transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
+            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+            {
+                this.transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
+            }
         }
 
         //if (Input.GetKey(KeyCode.LeftArrow))
         if (Input.GetKey(KeyCode.A))
         {
             state = ProtagonistState.Move;
-            this.transform.Rotate(Vector3.up, -1 * movementSpeed);
             if (Input.GetMouseButton((int)MouseButton.Right))
             {
-                if (!Input.GetKeyDown(KeyCode.W))
+                
+                this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed / 1.2f);
+
+                if (Input.GetKey(KeyCode.W))
                 {
-                    this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed / 3);
+                    this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed / 8f);
+                    this.transform.Translate(Vector3.right * Time.deltaTime * movementSpeed / 8);
                 }
-                this.transform.Translate(Vector3.right * Time.deltaTime * movementSpeed / 3);
+                if (Input.GetKey(KeyCode.S))
+                {
+                    this.transform.Translate(Vector3.forward * Time.deltaTime * 1.6f*movementSpeed);
+                    this.transform.Translate(Vector3.right * Time.deltaTime * movementSpeed / 8);
+                }
             }
+            else
+                this.transform.Rotate(Vector3.up, -1 * movementSpeed);
         }
 
         //if (Input.GetKey(KeyCode.RightArrow))
-        if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             state = ProtagonistState.Move;
-            this.transform.Rotate(Vector3.up, 1 * movementSpeed);
             if (Input.GetMouseButton((int)MouseButton.Right))
             {
-                if (!Input.GetKeyDown(KeyCode.W))
+
+                this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed / 1.2f);
+
+                if (Input.GetKey(KeyCode.W))
                 {
-                    this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed / 3);
+                    this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed / 8f);
+                    this.transform.Translate(Vector3.left * Time.deltaTime * movementSpeed / 8);
                 }
-                this.transform.Translate(Vector3.left * Time.deltaTime * movementSpeed / 3);
+                if (Input.GetKey(KeyCode.S))
+                {
+                    this.transform.Translate(Vector3.forward * Time.deltaTime * 1.6f * movementSpeed);
+                    this.transform.Translate(Vector3.left * Time.deltaTime * movementSpeed / 8);
+                }
             }
+            else
+                this.transform.Rotate(Vector3.up, 1 * movementSpeed);
         }
 
         if (!state.Equals(ProtagonistState.Jump) && interactions.CanJump && Input.GetKeyDown(KeyCode.Space))
