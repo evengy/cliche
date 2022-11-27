@@ -10,7 +10,8 @@ namespace Assets.Scripts.Game
         [SerializeField] Animator wardrobeAnimator;
         [SerializeField] Animator handAnimator;
         [SerializeField] Animator bookAnimator;
-
+        [SerializeField] GameObject hand;
+        [SerializeField] GameObject book;
         float timer;
         private void Start()
         {
@@ -22,6 +23,8 @@ namespace Assets.Scripts.Game
             if (!GameManager.Instance.State.Equals(GameState.Menu))
             {
                 chairAnimator.enabled = false;
+                hand.gameObject.SetActive(false);
+                book.gameObject.SetActive(false);
             }
             else
             {

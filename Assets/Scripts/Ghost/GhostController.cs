@@ -14,7 +14,7 @@ namespace Assets.Scripts.Ghost
         float swapTimer;
         float blinkTimer;
         float ghostPeriod = 5f;
-        float blinkPeriod = 0.5f;
+        float blinkPeriod = 0.4f;
         // Use this for initialization
         void Start()
         {
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Ghost
         }
         void Blink()
         {
-            blinkPeriod = Random.Range(0, 0.5f);
+            blinkPeriod = Random.Range(0, 0.4f);
             lampLight.enabled = !lampLight.enabled;
         }
         void Swap(SwappableObject[] swappables)

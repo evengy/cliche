@@ -24,8 +24,7 @@ public class TVScreenController : MonoBehaviour
 
     [SerializeField] AudioClip[] motivationSounds;
     [SerializeField] Material[] motivationMessages;
-    [SerializeField] Material hintMessage;
-    [SerializeField] Material batteryLowMessage;
+    [SerializeField] Material[] hintMessages;
 
     [SerializeField] AudioClip[] dropSounds;
     [SerializeField] AudioClip crawlSound;
@@ -67,7 +66,7 @@ public class TVScreenController : MonoBehaviour
             motivationSoundSource.loop = false;
             motivationSoundSource.clip = motivationSounds[Random.Range(0, motivationSounds.Length)];
             motivationSoundSource.Play();
-            ProtagonistUIController.Instance.AddToChat(motivationMessages[Random.Range(0,motivationMessages.Length)], PositionState.Left); // TODO random
+            ProtagonistUIController.Instance.AddToChat(motivationMessages[Random.Range(0, motivationMessages.Length)], PositionState.Left); // TODO random
             repeat = Random.Range(minMotivationRepeat, maxMotivationRepeat);
         }
         motivationTimer += Time.deltaTime;
@@ -89,7 +88,7 @@ public class TVScreenController : MonoBehaviour
             {
                 TVsource.clip = dropSounds[0]; TVsource.loop = false; TVsource.Play();
             }
-            
+
             if (!TVsource.isPlaying && awakeTimer > 0.4f && awakeTimer < 1f)
             {
                 TVsource.clip = dropSounds[1]; TVsource.loop = false; TVsource.Play();
@@ -111,7 +110,7 @@ public class TVScreenController : MonoBehaviour
             //TVsource.clip = dropSounds[2]; TVsource.loop = false; TVsource.Play();
             //TVsource.clip = crawlSound; TVsource.Play();
             GameManager.Instance.State = GameState.Challenge;
-            ProtagonistUIController.Instance.AddToChat(hintMessage, PositionState.Left);
+            ProtagonistUIController.Instance.AddToChat(hintMessages[Random.Range(0,hintMessages.Length)], PositionState.Left);
             rb.isKinematic = false;
         }
     }
@@ -140,22 +139,14 @@ public class TVScreenController : MonoBehaviour
         {
             if (interactions.IsInteractive)
             {
-                if (!state.Equals(TVState.Off))
-                {
-                    // TODO add low battery to the chatter
-                    //ProtagonistUIController.Instance.AddToChat(batteryLowMessage, PositionState.Left); // placeholder
-                    state = TVState.Off;
-                    screen.SetActive(false);
-                    GameManager.Instance.State = GameState.GameCompleted;
-                }
-                //else
-                //{
-                //    state = TVState.On;
-                //    screen.SetActive(true);
-                //}
+
+                state = TVState.Off;
+                screen.SetActive(false);
+                GameManager.Instance.State = GameState.GameCompleted;
             }
             else if (GetComponent<UIInteractions>().IsInteractive)
             {
+                ProtagonistUIController.Instance.AddToChat(hintMessages[Random.Range(0, hintMessages.Length)], PositionState.Left);
                 Debug.Log("Need to find a TV Switch"); // Show on UI
             }
         }

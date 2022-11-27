@@ -7,13 +7,13 @@ namespace Assets.Scripts.Ghost
     {
         public bool CanBeSwapped { get; private set; }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.tag.Equals("GhostView"))
-            {
-                CanBeSwapped = true;
-            }
-        }
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //    if (other.tag.Equals("GhostView"))
+        //    {
+        //        CanBeSwapped = true;
+        //    }
+        //}
 
         private void OnTriggerExit(Collider other)
         {

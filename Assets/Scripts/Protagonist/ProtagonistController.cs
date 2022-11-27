@@ -190,8 +190,11 @@ public class ProtagonistController : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             state = ProtagonistState.Move;
-            //this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
-            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+            if (!Input.GetMouseButton((int)MouseButton.Right))
+            {
+                this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
+            }
+            else if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
             {
                 this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
             }
@@ -201,7 +204,11 @@ public class ProtagonistController : MonoBehaviour
         else if (Input.GetKey(KeyCode.S))
         {
             state = ProtagonistState.Move;
-            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+            if (!Input.GetMouseButton((int)MouseButton.Right))
+            {
+                this.transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
+            }
+            else if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
             {
                 this.transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
             }
