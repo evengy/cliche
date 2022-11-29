@@ -68,12 +68,10 @@
     <Compile Include="Assets\Scripts\Drawer\DrawerController.cs" />
     <Compile Include="Assets\Scripts\Protagonist\ProtagonistController.cs" />
     <Compile Include="Assets\Scripts\House\TelephoneController.cs" />
-    <Compile Include="Assets\Misc\Scripts\House\WallSpawner.cs" />
     <Compile Include="Assets\Scripts\House\LightSwitchController.cs" />
     <Compile Include="Assets\Scripts\House\ShelfController.cs" />
     <Compile Include="Assets\Scripts\UI\Chatter.cs" />
     <Compile Include="Assets\Scripts\House\FlashLightController.cs" />
-    <Compile Include="Assets\Misc\Scripts\Shaders\HauntedWallsShader.cs" />
     <Compile Include="Assets\Scripts\Game\SoundManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIOptionState.cs" />
     <Compile Include="Assets\Scripts\TV\TVInteractions.cs" />
@@ -97,6 +95,7 @@
     <Compile Include="Assets\Scripts\Interactive\TriggerOnProtagonist.cs" />
     <Compile Include="Assets\Scripts\Interactive\CanvasRotationController.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
+    <Compile Include="Assets\Scripts\House\RainController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

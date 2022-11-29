@@ -162,7 +162,7 @@ public class ProtagonistController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (interactions.IsInteractive)
+            if (interactions.IsInteractive && !tVSwitchFound)
             {
                 interactions.Pick.UI.gameObject.SetActive(false);
 

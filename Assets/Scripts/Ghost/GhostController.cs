@@ -80,13 +80,17 @@ namespace Assets.Scripts.Ghost
                     Swap(swappables.Where(s => s.CanBeSwapped).ToArray());
                 }
             }
-            swapTimer += Time.deltaTime;
             if (GameManager.Instance.State.Equals(GameState.Challenge) && blinkTimer > blinkPeriod)
             {
                 blinkTimer = 0f;
                 Blink();
             }
-            blinkTimer += Time.deltaTime;
+            if (GameManager.Instance.State.Equals(GameState.Challenge))
+            {
+                swapTimer += Time.deltaTime;
+                blinkTimer += Time.deltaTime;
+            }
+
         }
     }
 }

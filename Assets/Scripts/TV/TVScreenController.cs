@@ -73,6 +73,11 @@ public class TVScreenController : MonoBehaviour
     }
     void UpdateState()
     {
+        if (state.Equals(TVState.Off))
+        {
+            GameManager.Instance.State = GameState.GameCompleted;
+            return;
+        }
         if (!awake && awakeTrigger.Triggered)
         {
             awakeTimer = 0;
@@ -142,7 +147,6 @@ public class TVScreenController : MonoBehaviour
 
                 state = TVState.Off;
                 screen.SetActive(false);
-                GameManager.Instance.State = GameState.GameCompleted;
             }
             else if (GetComponent<UIInteractions>().IsInteractive)
             {
@@ -187,6 +191,8 @@ public class TVScreenController : MonoBehaviour
             animator.ResetTrigger("Grab");
 
             animator.SetTrigger("Stop");
+
+            
         }
         if (state.Equals(TVState.Awake))
         {
@@ -219,8 +225,8 @@ public class TVScreenController : MonoBehaviour
     void Update()
     {
         Motivation();
-        UpdateState();
         Switch();
+        UpdateState();
         Animate();
         if (state.Equals(TVState.Haunted)) FollowProtagonist();
     }
