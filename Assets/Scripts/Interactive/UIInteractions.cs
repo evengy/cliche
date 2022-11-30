@@ -1,4 +1,7 @@
-﻿using Assets.Scripts.Interactive;
+﻿using Assets.Scripts.Game;
+using Assets.Scripts.Interactive;
+using Assets.Scripts.Protagonist;
+using Mono.Cecil;
 using System.Collections;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
@@ -13,6 +16,11 @@ namespace Assets.Scripts.Interactive
         [SerializeField] GameObject highlight;
         [SerializeField] bool highlightable = true;
         int layerMask;
+
+        private bool isUsingTVSwitch;
+        private bool isUsingUI;
+        
+
 
         private bool isInReach;
         private bool isHighlighted;
@@ -49,11 +57,47 @@ namespace Assets.Scripts.Interactive
                     Debug.Log(hit.transform.GetInstanceID());
                     Debug.Log("hit");
                     isHighlighted = true;
+                    //SoundManager.Instance.PlayHighlightSound();
                     highlight.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
                 }
             }
         }
 
+        void ApplyUseState()
+        {
+            if (IsInteractive && 
+                (Input.GetKeyDown(KeyCode.E)
+                || Input.GetMouseButtonDown((int)MouseButton.Left)))
+            {
+                isUsingUI = true; 
+            }
+            if (IsInteractive &&
+                Input.GetKeyDown(KeyCode.T))
+            {
+                isUsingTVSwitch = true;
+            }
+        }
+        void PlaySouns()
+        {
+            if (isUsingTVSwitch)
+            {
+                isUsingTVSwitch = false;
+                SoundManager.Instance.UseSource.Stop();
+                SoundManager.Instance.UseSource.clip = SoundManager.Instance.UseTVSwitchSound;
+                SoundManager.Instance.UseSource.volume = 1f;
+                SoundManager.Instance.UseSource.loop = false;
+                SoundManager.Instance.UseSource.Play();
+            }
+            else if (isUsingUI)
+            {
+                isUsingUI = false;
+                SoundManager.Instance.UseSource.Stop();
+                SoundManager.Instance.UseSource.clip = SoundManager.Instance.UseSound;
+                SoundManager.Instance.UseSource.volume = 0.1f;
+                SoundManager.Instance.UseSource.loop = false;
+                SoundManager.Instance.UseSource.Play();
+            }
+        }
         // Update is called once per frame
         void Update()
         {
@@ -65,6 +109,8 @@ namespace Assets.Scripts.Interactive
             {
                 UIUpdate();
             }
+            ApplyUseState();
+            PlaySouns();
         }
 
         private void OnTriggerEnter(Collider other)

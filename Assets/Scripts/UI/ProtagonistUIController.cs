@@ -10,72 +10,78 @@ namespace Assets.Scripts.UI
     {
         [SerializeField] GameObject chatter;
         [SerializeField] GameObject canvas;
-
+        [SerializeField] AudioClip messageSound;
         Queue<GameObject> messageQueue;
-        float timerStart;
-        float timerStop;
-        // Use this for initialization
+        float messageShowTimer;
+        [SerializeField] float messageShowPeriod = 3f;
+        bool isShowing;
+        GameObject message;
         void Start()
         {
             canvas.SetActive(false);
-            timerStart = Time.time;
-            timerStop = Time.time;
 
             messageQueue = new Queue<GameObject>();
         }
 
-        // Update is called once per frame
         void Update()
         {
-            timerStop += Time.deltaTime;
-            if (messageQueue.Count > 1) 
+            if (messageQueue.Count > 0)
             {
-                Debug.Log($"{messageQueue.Count}");
-                var foo = messageQueue.Dequeue();
-                Destroy(foo);
-                Debug.Log($"{messageQueue.Count}");
+                canvas.SetActive(true);
+                ShowMessages();
             }
-            if (timerStop - timerStart > 5)
+            else if (messageShowTimer > messageShowPeriod)
             {
                 canvas.SetActive(false);
             }
+            messageShowTimer += Time.deltaTime;
         }
 
-        public void AddToChat(Material message, PositionState position)
+        private void ShowMessages()
         {
-            timerStart = Time.time;
-            timerStop = Time.time;
-            canvas.SetActive(true);
+            if (!isShowing && messageShowTimer < messageShowPeriod)
+            {
+                isShowing = true;
+                message = messageQueue.Dequeue();
+                message.SetActive(true);
+            }
+            else if (messageShowTimer >= messageShowPeriod)
+            {
+                messageShowTimer = 0;
+                if (message != null) Destroy(message);
+                isShowing = false;
+            }
 
-            if (messageQueue.Count > 0)
+        }
+
+        public void AddToChat(Material message, PositionState position = Helpers.PositionState.Left, bool messageOverride = true)
+        {
+            if (messageOverride)
             {
-                var chatters = messageQueue.ToArray();
-                foreach (var chatter in chatters)
-                {
-                    chatter.GetComponent<RectTransform>().anchoredPosition = new Vector2(
-                        chatter.GetComponent<RectTransform>().anchoredPosition.x,
-                        chatter.GetComponent<RectTransform>().anchoredPosition.y + 50
-                        );
-                }
+                messageShowTimer = messageShowPeriod;
             }
+            chatter.SetActive(false);
             var foo = Instantiate(chatter);
+
             foo.transform.SetParent(canvas.transform, false);
-            if (position.Equals(PositionState.Left))
-            {
-                //foo.GetComponent<RectTransform>().anchoredPosition = new Vector2(
-                //    foo.GetComponent<RectTransform>().anchoredPosition.x - 10,
-                //    foo.GetComponent<RectTransform>().anchoredPosition.y
-                //    );
-                //foo.GetComponent<Animator>().SetFloat("Offset", 1f);
-            }
-            else if (position.Equals(PositionState.Right))
-            {
-                //foo.GetComponent<RectTransform>().anchoredPosition = new Vector2(
-                //    foo.GetComponent<RectTransform>().anchoredPosition.x + 10,
-                //    foo.GetComponent<RectTransform>().anchoredPosition.y
-                //    );
-                //foo.GetComponent<Animator>().SetFloat("Offset", 1f);
-            }
+            #region interactive dialogs
+            //if (position.Equals(PositionState.Left))
+            //{
+            //    //foo.GetComponent<RectTransform>().anchoredPosition = new Vector2(
+            //    //    foo.GetComponent<RectTransform>().anchoredPosition.x - 10,
+            //    //    foo.GetComponent<RectTransform>().anchoredPosition.y
+            //    //    );
+            //    //foo.GetComponent<Animator>().SetFloat("Offset", 1f);
+            //}
+            //else if (position.Equals(PositionState.Right)) 
+            //    {
+            //    //foo.GetComponent<RectTransform>().anchoredPosition = new Vector2(
+            //    //    foo.GetComponent<RectTransform>().anchoredPosition.x + 10,
+            //    //    foo.GetComponent<RectTransform>().anchoredPosition.y
+            //    //    );
+            //    //foo.GetComponent<Animator>().SetFloat("Offset", 1f);
+            //}
+            #endregion
             foo.GetComponent<Chatter>().SetMessage = message;
             messageQueue.Enqueue(foo);
         }

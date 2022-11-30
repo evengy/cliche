@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Game;
+using Assets.Scripts.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,11 @@ namespace Assets.Scripts.Ghost
         float blinkTimer;
         float ghostPeriod = 5f;
         float blinkPeriod = 0.4f;
+        float currentDensity = 0;
+        float currentIntensity = 0;
+        Color currentColor;
+        bool lightsOut;
+        bool lightsOn;
         // Use this for initialization
         void Start()
         {
@@ -67,7 +73,27 @@ namespace Assets.Scripts.Ghost
             }
 
         }
-
+        void LightsOut()
+        {
+            if (lightsOut) return;
+            currentDensity = RenderSettings.fogDensity;
+            currentIntensity = RenderSettings.ambientIntensity;
+            currentColor = RenderSettings.fogColor;
+            RenderSettings.ambientIntensity = 0.5f;
+            RenderSettings.fogDensity = 0.1f;
+            RenderSettings.fogColor = Color.black;
+            lightsOut = true;
+            lightsOn = false;
+        }
+        void LightsOn()
+        {
+            if (lightsOn) return;
+            RenderSettings.ambientIntensity = currentIntensity;
+            RenderSettings.fogDensity = currentDensity;
+            RenderSettings.fogColor = currentColor;
+            lightsOn = true;
+            lightsOut = false;
+        }
         // Update is called once per frame
         void Update()
         {
@@ -89,6 +115,11 @@ namespace Assets.Scripts.Ghost
             {
                 swapTimer += Time.deltaTime;
                 blinkTimer += Time.deltaTime;
+                LightsOut();
+            }
+            if (GameManager.Instance.State.Equals(GameState.GameCompleted))
+            {
+                LightsOn();
             }
 
         }

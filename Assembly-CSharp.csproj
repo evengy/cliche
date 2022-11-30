@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Drawer\DrawerState.cs" />
     <Compile Include="Assets\Scripts\Game\MenuManager.cs" />
     <Compile Include="Assets\Scripts\TV\TVState.cs" />
+    <Compile Include="Assets\Scripts\House\RainController.cs" />
     <Compile Include="Assets\Scripts\Helpers\TextureMap.cs" />
     <Compile Include="Assets\Scripts\Game\CameraViewManager.cs" />
     <Compile Include="Assets\Scripts\Game\SettingsManager.cs" />
@@ -95,7 +96,6 @@
     <Compile Include="Assets\Scripts\Interactive\TriggerOnProtagonist.cs" />
     <Compile Include="Assets\Scripts\Interactive\CanvasRotationController.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
-    <Compile Include="Assets\Scripts\House\RainController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

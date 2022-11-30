@@ -22,10 +22,13 @@ public class TVScreenController : MonoBehaviour
     [SerializeField] TriggerOnProtagonist grabTrigger;
     [SerializeField] TriggerOnProtagonist awakeTrigger;
 
-    [SerializeField] AudioClip[] motivationSounds;
     [SerializeField] Material[] motivationMessages;
     [SerializeField] Material[] hintMessages;
+    [SerializeField] Material lightsOutMessage;
+    [SerializeField] Material regretMessage;
+    // TODO refactor sounds should be managed outside TV class
 
+    [SerializeField] AudioClip[] motivationSounds;
     [SerializeField] AudioClip[] dropSounds;
     [SerializeField] AudioClip crawlSound;
     AudioSource TVsource;
@@ -111,11 +114,9 @@ public class TVScreenController : MonoBehaviour
         {
             state = TVState.Haunted;
             CameraViewManager.Instance.Release();
-
-            //TVsource.clip = dropSounds[2]; TVsource.loop = false; TVsource.Play();
-            //TVsource.clip = crawlSound; TVsource.Play();
+            ProtagonistUIController.Instance.AddToChat(lightsOutMessage, PositionState.Left, true); 
+            ProtagonistUIController.Instance.AddToChat(hintMessages[Random.Range(0,hintMessages.Length)], PositionState.Left, false);
             GameManager.Instance.State = GameState.Challenge;
-            ProtagonistUIController.Instance.AddToChat(hintMessages[Random.Range(0,hintMessages.Length)], PositionState.Left);
             rb.isKinematic = false;
         }
     }

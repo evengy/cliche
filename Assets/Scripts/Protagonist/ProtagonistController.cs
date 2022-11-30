@@ -15,11 +15,13 @@ public class ProtagonistController : MonoBehaviour
     [SerializeField] GameObject handler;
     ProtagonistState state;
     private bool tVSwitchFound;
+    bool usingTVSwitch;
     public bool TVSwitchFound => tVSwitchFound;
     ProtagonistInteractions interactions;
 
-    AudioSource audioSource;
+    AudioSource footstepsSource;
     [SerializeField] AudioClip[] footsteps;
+   
 
     [SerializeField] CinemachineFreeLook cinemachine;
     [SerializeField] Material defaultFace;
@@ -36,7 +38,7 @@ public class ProtagonistController : MonoBehaviour
         interactions = GetComponent<ProtagonistInteractions>();
         animator = gameObject.GetComponentInChildren<Animator>(); // TODO refactor
         state = ProtagonistState.Idle;
-        audioSource = gameObject.GetComponent<AudioSource>();
+        footstepsSource = gameObject.GetComponent<AudioSource>();
         menuView = true;
     }
 
@@ -66,8 +68,8 @@ public class ProtagonistController : MonoBehaviour
             cinemachine.m_Orbits[1].m_Height = 3;
             cinemachine.m_Orbits[1].m_Radius = 6;
             // buttom rig
-            cinemachine.m_Orbits[2].m_Height = 2.75f;
-            cinemachine.m_Orbits[2].m_Radius = 7;
+            cinemachine.m_Orbits[2].m_Height = 1;// 2.75f;
+            cinemachine.m_Orbits[2].m_Radius = 5;//7;
         }
 
         else if (!menuView && state.Equals(GameState.Menu)) // state changed TO menu
@@ -162,6 +164,7 @@ public class ProtagonistController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            state = ProtagonistState.Use;
             if (interactions.IsInteractive && !tVSwitchFound)
             {
                 interactions.Pick.UI.gameObject.SetActive(false);
@@ -173,9 +176,19 @@ public class ProtagonistController : MonoBehaviour
                     tVSwitchFound = true;
                 }
             }
+        }
+        if (Input.GetMouseButtonDown((int)MouseButton.Left))
+        {
             state = ProtagonistState.Use;
         }
+        if (tVSwitchFound && Input.GetKeyDown(KeyCode.T))
+        {
+            usingTVSwitch = true;
+            state = ProtagonistState.Use;
+        }
+
     }
+
     void GetScared()
     {
         if (Input.GetKey(KeyCode.S))
@@ -220,7 +233,7 @@ public class ProtagonistController : MonoBehaviour
             state = ProtagonistState.Move;
             if (Input.GetMouseButton((int)MouseButton.Right))
             {
-                
+
                 this.transform.Translate(Vector3.back * Time.deltaTime * movementSpeed / 1.2f);
 
                 if (Input.GetKey(KeyCode.W))
@@ -230,7 +243,7 @@ public class ProtagonistController : MonoBehaviour
                 }
                 if (Input.GetKey(KeyCode.S))
                 {
-                    this.transform.Translate(Vector3.forward * Time.deltaTime * 1.6f*movementSpeed);
+                    this.transform.Translate(Vector3.forward * Time.deltaTime * 1.6f * movementSpeed);
                     this.transform.Translate(Vector3.right * Time.deltaTime * movementSpeed / 8);
                 }
             }
@@ -309,19 +322,22 @@ public class ProtagonistController : MonoBehaviour
 
     void PlaySounds()
     {
+        
+
         if (state.Equals(ProtagonistState.Idle))
         {
 
         }
+        
         if (state.Equals(ProtagonistState.Move))
         {
-            if (!audioSource.isPlaying)
+            if (!footstepsSource.isPlaying)
             {
 
                 var clip = footsteps[Random.Range(0, footsteps.Length)];
-                audioSource.clip = clip;
-                audioSource.loop = false;
-                audioSource.Play();
+                footstepsSource.clip = clip;
+                footstepsSource.loop = false;
+                footstepsSource.Play();
             }
         }
     }

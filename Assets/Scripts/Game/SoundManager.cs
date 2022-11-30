@@ -14,6 +14,12 @@ namespace Assets.Scripts.Game
         AudioSource audioSource1;
         AudioSource audioSource2;
 
+        public AudioSource UseSource { get; private set; }
+        [SerializeField] public AudioClip UseSound;
+        [SerializeField] public AudioClip UseTVSwitchSound;
+        //[SerializeField] AudioClip highlightSound;
+        //AudioSource highlightSource;
+
         bool isSource1;
 
         [SerializeField] float fadeTime = 2f;
@@ -22,10 +28,23 @@ namespace Assets.Scripts.Game
         {
             audioSource1 = gameObject.AddComponent<AudioSource>();
             audioSource2 = gameObject.AddComponent<AudioSource>();
+
             isSource1 = true;
 
             DirectInit(menuSound);
+            
+            UseSource = gameObject.AddComponent<AudioSource>();
+            //highlightSource = gameObject.AddComponent<AudioSource>();
         }
+        //public void PlayHighlightSound()
+        //{
+        //    if (!highlightSource.isPlaying)
+        //    {
+        //        highlightSource.clip = highlightSound;
+        //        highlightSource.loop = false;
+        //        highlightSource.Play();
+        //    }
+        //}
 
         public void RunCredits()
         {

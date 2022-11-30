@@ -52,5 +52,7 @@ namespace Assets.Scripts.Protagonist
                 CanJump = false;
             }
         }
+
+        
     }
 }
