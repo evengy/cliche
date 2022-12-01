@@ -66,11 +66,9 @@ namespace Assets.Scripts.UI
                 endgameLayout.SetActive(true);
                 mainLayout.SetActive(false);
 
-                CreditsManager.Instance.isActive = true;
             }
             else
             {
-                CreditsManager.Instance.isActive = false;
 
                 if (GameManager.Instance.State.Equals(GameState.Menu))
                 {

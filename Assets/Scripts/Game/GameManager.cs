@@ -46,21 +46,21 @@ namespace Assets.Scripts.Game
         void Update()
         {
             #region Debug
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                State = GameState.GameCompleted;
-            }
+            //if (Input.GetKeyDown(KeyCode.F))
+            //{
+            //    State = GameState.GameCompleted;
+            //}
 
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                State = GameState.GameOver;
-            }
+            //if (Input.GetKeyDown(KeyCode.G))
+            //{
+            //    State = GameState.GameOver;
+            //}
 
 
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                State = GameState.Challenge;
-            }
+            //if (Input.GetKeyDown(KeyCode.C))
+            //{
+            //    State = GameState.Challenge;
+            //}
 
            
             #endregion
