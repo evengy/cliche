@@ -17,13 +17,12 @@ namespace Assets.Scripts.Game
         public AudioSource UseSource { get; private set; }
         [SerializeField] public AudioClip UseSound;
         [SerializeField] public AudioClip UseTVSwitchSound;
-        //[SerializeField] AudioClip highlightSound;
-        //AudioSource highlightSource;
+        [SerializeField] AudioClip highlightSound;
+        AudioSource highlightSource;
 
         bool isSource1;
 
         [SerializeField] float fadeTime = 2f;
-        // Use this for initialization
         void Start()
         {
             audioSource1 = gameObject.AddComponent<AudioSource>();
@@ -34,21 +33,38 @@ namespace Assets.Scripts.Game
             DirectInit(menuSound);
             
             UseSource = gameObject.AddComponent<AudioSource>();
-            //highlightSource = gameObject.AddComponent<AudioSource>();
+            highlightSource = gameObject.AddComponent<AudioSource>();
         }
-        //public void PlayHighlightSound()
-        //{
-        //    if (!highlightSource.isPlaying)
-        //    {
-        //        highlightSource.clip = highlightSound;
-        //        highlightSource.loop = false;
-        //        highlightSource.Play();
-        //    }
-        //}
+        public void PlayHighlightSound()
+        {
+            //if (!highlightSource.isPlaying)
+            //{
+            //    highlightSource.volume = 0.2f;
+            //    highlightSource.clip = highlightSound;
+            //    highlightSource.loop = false;
+            //    highlightSource.Play();
+            //}
+        }
 
         public void RunCredits()
         {
             Swap(creditsSound);
+        }
+
+        public void PlayUse()
+        {
+            UseSource.Stop();
+            UseSource.clip =UseSound;
+            UseSource.volume = 0.1f;
+            UseSource.Play();
+        }
+        public void PlayTVSwitch()
+        {
+            UseSource.Stop();
+            UseSource.clip = UseTVSwitchSound;
+            UseSource.volume = 1f;
+            UseSource.loop = false;
+            UseSource.Play();
         }
 
         void Swap(AudioClip audio)

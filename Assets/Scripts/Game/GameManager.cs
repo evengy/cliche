@@ -32,20 +32,17 @@ namespace Assets.Scripts.Game
                     SoundManager.Instance.UpdateSound();
                 }
             }
-        } // TODO private set and refactor
-        // Use this for initialization
+        } 
         void Start()
         {
             State = GameState.Menu;
             debugLightSource.SetActive(false);
             RenderSettings.ambientIntensity = 0.5f;
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
-            //RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
         }
-
-        // Update is called once per frame
         void Update()
         {
+            #region Debug
             //if (Input.GetKeyDown(KeyCode.F))
             //{
             //    State = GameState.GameCompleted;
@@ -55,40 +52,33 @@ namespace Assets.Scripts.Game
             //{
             //    State = GameState.GameOver;
             //}
-            //if (!started && State.Equals(GameState.Start))
-            //{
-            //    started = true;
-            //    RenderSettings.ambientIntensity = 0.5f;
-            //    RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
-            //    ProtagonistUIController.Instance.AddToChat(whoTrunedOutTheLights, PositionState.Left);
-            //}
+
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                State = GameState.Challenge;
+            }
+            #endregion
             if (GameManager.Instance.State.Equals(GameState.Wait))
             {
                 cinemachine.LookAt = tvAwakeView.transform;
                 cinemachine.Follow = tvAwakeView.transform;
             }
-
-            if (State.Equals(GameState.Menu))
-            {
-                protagonist.SetActive(false);
-                dummy.SetActive(true);
-            }
             if (!State.Equals(GameState.Menu))
             {
                 protagonist.SetActive(true);
                 dummy.SetActive(false);
+                if (!Camera.main.GetComponent<CinemachineBrain>().enabled)
+                {
+                    Camera.main.GetComponent<CinemachineBrain>().enabled = true;
+                }
             }
-
             if (State.Equals(GameState.Menu)) // || State.Equals(GameState.Motivation))
             {
+                protagonist.SetActive(false);
+                dummy.SetActive(true);
                 Camera.main.GetComponent<CinemachineBrain>().enabled = false;
-
             }
-            else if (!Camera.main.GetComponent<CinemachineBrain>().enabled)
-            {
-                Camera.main.GetComponent<CinemachineBrain>().enabled = true;
-            }
-
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Game;
-using Assets.Scripts.Helpers;
+﻿using Assets.Scripts.Helpers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +9,15 @@ namespace Assets.Scripts.UI
     {
         [SerializeField] GameObject chatter;
         [SerializeField] GameObject canvas;
-        [SerializeField] AudioClip messageSound;
-        Queue<GameObject> messageQueue;
-        float messageShowTimer;
+        [SerializeField] AudioClip messageSound; // TODO
         [SerializeField] float messageShowPeriod = 3f;
+        float messageShowTimer;
+        Queue<GameObject> messageQueue;
         bool isShowing;
         GameObject message;
         void Start()
         {
             canvas.SetActive(false);
-
             messageQueue = new Queue<GameObject>();
         }
 
@@ -85,7 +83,5 @@ namespace Assets.Scripts.UI
             foo.GetComponent<Chatter>().SetMessage = message;
             messageQueue.Enqueue(foo);
         }
-
-
     }
 }

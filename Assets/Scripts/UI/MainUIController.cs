@@ -8,10 +8,10 @@ namespace Assets.Scripts.UI
 {
     public class MainUIController : Singleton<MainUIController>
     {
-        public UIOptionState State { get; private set; }
+        private UIOptionState optionSelected;
 
-        Material FirstOptionMessage => button1.GetComponent<Image>().material;
-        Material SecondOptionMessage => button2.GetComponent<Image>().material;
+        //Material FirstOptionMessage => button1.GetComponent<Image>().material;
+        //Material SecondOptionMessage => button2.GetComponent<Image>().material;
 
         Button button1; // start by default
         Button button2; // TODO
@@ -24,16 +24,16 @@ namespace Assets.Scripts.UI
         [SerializeField] Material newGame;
         [SerializeField] Material tryAgain;
         [SerializeField] Material backToMenu;
-        [SerializeField] Material credits;
+        //[SerializeField] Material credits;
         [SerializeField] Material exit;
         [SerializeField] Material gameOver;
         [SerializeField] Material gameComplete;
 
         [SerializeField] GameObject endgameTitle;
 
-        [SerializeField] Material firstMotivationMessage;
-        [SerializeField] Material secondMotivationMessage;
-        [SerializeField] Material motivationResponse;
+        //[SerializeField] Material firstMotivationMessage;
+        //[SerializeField] Material secondMotivationMessage;
+        //[SerializeField] Material motivationResponse;
 
         // Start is called before the first frame update
         void Start()
@@ -57,9 +57,9 @@ namespace Assets.Scripts.UI
         {
             if (GameManager.Instance.State.Equals(GameState.GameCompleted))
             {
-                button1.GetComponent<Image>().material = backToMenu; // back to menu
+                button1.GetComponent<Image>().material = backToMenu; 
                 button2.gameObject.SetActive(false);
-                button3.GetComponent<Image>().material = exit;  // back to menu
+                button3.GetComponent<Image>().material = exit;  
                 endgameTitle.GetComponent<Image>().material = gameComplete;
 
                 options.SetActive(true);
@@ -85,8 +85,8 @@ namespace Assets.Scripts.UI
                 }
                 if (GameManager.Instance.State.Equals(GameState.Motivation))
                 {
-                    button1.GetComponent<Image>().material = firstMotivationMessage;
-                    button2.GetComponent<Image>().material = secondMotivationMessage;
+                    //button1.GetComponent<Image>().material = firstMotivationMessage;
+                    //button2.GetComponent<Image>().material = secondMotivationMessage;
 
                     endgameLayout.SetActive(false);
                     options.SetActive(true);
@@ -113,9 +113,9 @@ namespace Assets.Scripts.UI
                 if (GameManager.Instance.State.Equals(GameState.GameOver))
                 {
 
-                    button1.GetComponent<Image>().material = tryAgain; // back to menu
+                    button1.GetComponent<Image>().material = tryAgain;
                     button2.gameObject.SetActive(false);
-                    button3.GetComponent<Image>().material = exit; // back to menu
+                    button3.GetComponent<Image>().material = exit; 
                     endgameTitle.GetComponent<Image>().material = gameOver;
 
                     options.SetActive(true);
@@ -138,10 +138,10 @@ namespace Assets.Scripts.UI
             }
             if (GameManager.Instance.State.Equals(GameState.Motivation))
             {
-                State = UIOptionState.Option1;
-                Debug.Log($"{State}");
+                optionSelected = UIOptionState.Option1;
+                Debug.Log($"{optionSelected}");
                 //ProtagonistUIController.Instance.AddToChat(FirstOptionMessage, PositionState.Right);
-                ProtagonistUIController.Instance.AddToChat(motivationResponse, PositionState.Left);
+                //ProtagonistUIController.Instance.AddToChat(motivationResponse, PositionState.Left);
                 GameManager.Instance.State = GameState.Continue;
             }
             if (GameManager.Instance.State.Equals(GameState.Challenge))
@@ -171,10 +171,10 @@ namespace Assets.Scripts.UI
             }
             if (GameManager.Instance.State.Equals(GameState.Motivation))
             {
-                State = UIOptionState.Option1;
-                Debug.Log($"{State}");
+                optionSelected = UIOptionState.Option1;
+                Debug.Log($"{optionSelected}");
                 //ProtagonistUIController.Instance.AddToChat(SecondOptionMessage, PositionState.Right);
-                ProtagonistUIController.Instance.AddToChat(motivationResponse, PositionState.Left);
+                //ProtagonistUIController.Instance.AddToChat(motivationResponse, PositionState.Left);
                 GameManager.Instance.State = GameState.Continue;
             }
             if (GameManager.Instance.State.Equals(GameState.Challenge))

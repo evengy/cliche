@@ -8,19 +8,12 @@ namespace Assets.Scripts.Protagonist
     {
         public PickableObject Pick => pick;
         private PickableObject pick;
-        public bool CanJump { get; private set; }
+        //public bool CanJump { get; private set; } 
         private bool isInteractive;
         public bool IsInteractive => isInteractive;
-        // Use this for initialization
         void Start()
         {
             isInteractive = false;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
 
         private void OnTriggerEnter(Collider other)
@@ -38,19 +31,19 @@ namespace Assets.Scripts.Protagonist
                 pick = other.gameObject.GetComponent<PickableObject>();
             }
 
-            if (other.tag.Equals("JumpObject"))
-            {
-                CanJump = true;
-            }
+            //if (other.tag.Equals("JumpObject"))
+            //{
+            //    CanJump = true;
+            //}
         }
 
         private void OnTriggerExit(Collider other)
         {
             isInteractive = false;
-            if (other.tag.Equals("JumpObject"))
-            {
-                CanJump = false;
-            }
+            //if (other.tag.Equals("JumpObject"))
+            //{
+            //    CanJump = false;
+            //}
         }
 
         

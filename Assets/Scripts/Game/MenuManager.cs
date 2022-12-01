@@ -6,6 +6,7 @@ namespace Assets.Scripts.Game
 {
     public class MenuManager : Singleton<MenuManager>
     {
+        // TODO implement this class as part of MainUIController
         [SerializeField] Animator chairAnimator;
         [SerializeField] Animator wardrobeAnimator;
         [SerializeField] Animator handAnimator;
