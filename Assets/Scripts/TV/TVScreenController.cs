@@ -3,7 +3,6 @@ using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactive;
 using Assets.Scripts.TV;
 using Assets.Scripts.UI;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class TVScreenController : MonoBehaviour
@@ -89,10 +88,12 @@ public class TVScreenController : MonoBehaviour
             //motivationSoundSource.spatialBlend = 1f;
             motivationSoundSource.clip = clicheSounds[Random.Range(0, clicheSounds.Length)];
             motivationSoundSource.Play();
-            chatter.SetActive(true);
-            chatterInstance = Instantiate(chatter);
-            chatterInstance.transform.SetParent(clicheUI.transform, false);
-            chatterInstance.GetComponent<Chatter>().SetMessage = clicheLines[Random.Range(0, clicheLines.Length)];
+            ProtagonistUIController.Instance.AddToChat(clicheLines[Random.Range(0, clicheLines.Length)], PositionState.Left); // TODO random
+
+            //chatter.SetActive(true);
+            //chatterInstance = Instantiate(chatter);
+            //chatterInstance.transform.SetParent(clicheUI.transform, false);
+            //chatterInstance.GetComponent<Chatter>().SetMessage = clicheLines[Random.Range(0, clicheLines.Length)];
         }
         if (motivationTimer > messageShowPeriod)
         {
