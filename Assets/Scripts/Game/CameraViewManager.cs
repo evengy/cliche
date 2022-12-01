@@ -12,6 +12,7 @@ namespace Assets.Scripts.Game
         // [SerializeField] GameObject menuView; // TODO
         [SerializeField] GameObject protagonistView;
         [SerializeField] GameObject tvAwakeView;
+        [SerializeField] GameObject creditsView;
         // [SerializeField] GameObject gameCompletedView; // TODO
         // Use this for initialization
         CinemachineVirtualCamera vCamera;
@@ -37,6 +38,14 @@ namespace Assets.Scripts.Game
         {
             cinemachine.m_Follow = follow;
             cinemachine.m_LookAt = lookAt;
+        }
+        void Update()
+        {
+            if (GameManager.Instance.State.Equals(GameState.GameCompleted))
+            {
+                cinemachine.m_Follow = creditsView.transform;
+                cinemachine.m_LookAt = creditsView.transform;
+            }
         }
     }
 }

@@ -17,8 +17,11 @@ namespace Assets.Scripts.Game
         [SerializeField] GameObject tvAwakeView;
 
         [SerializeField] Material whoTrunedOutTheLights;
+
+       
         // [SerializeField] GameObject gameCompletedView; // TODO
         bool started;
+        
         private GameState state;
         public GameState State
         {
@@ -43,21 +46,23 @@ namespace Assets.Scripts.Game
         void Update()
         {
             #region Debug
-            //if (Input.GetKeyDown(KeyCode.F))
-            //{
-            //    State = GameState.GameCompleted;
-            //}
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                State = GameState.GameCompleted;
+            }
 
-            //if (Input.GetKeyDown(KeyCode.G))
-            //{
-            //    State = GameState.GameOver;
-            //}
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                State = GameState.GameOver;
+            }
 
 
             if (Input.GetKeyDown(KeyCode.C))
             {
                 State = GameState.Challenge;
             }
+
+           
             #endregion
             if (GameManager.Instance.State.Equals(GameState.Wait))
             {

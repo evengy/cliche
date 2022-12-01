@@ -18,7 +18,7 @@ public class TVScreenController : MonoBehaviour
     [SerializeField] float maxMotivationRepeat = 15f;
     [SerializeField] float minMotivationRepeat = 5f;
     [SerializeField] GameObject protagonist;
-    [SerializeField] GameObject idleHands;
+    [SerializeField] GameObject creditsCube;
     [SerializeField] GameObject hauntedHands;
     [SerializeField] TriggerOnProtagonist grabTrigger;
     [SerializeField] TriggerOnProtagonist awakeTrigger;
@@ -53,6 +53,11 @@ public class TVScreenController : MonoBehaviour
     float awakeTimer;
     float motivationTimer;
     float motivationPeriod;
+
+
+    bool isShowingCredits;
+    float creditsPeriod = 15f;
+    float creditsTimer = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -213,9 +218,10 @@ public class TVScreenController : MonoBehaviour
 
     void Animate()
     {
+        
         if (state.Equals(TVState.Idle))
         {
-            idleHands.SetActive(true);
+            creditsCube.SetActive(false);
             hauntedHands.SetActive(false);
             animator.ResetTrigger("Haunted");
             animator.ResetTrigger("Awake");
@@ -226,7 +232,7 @@ public class TVScreenController : MonoBehaviour
         }
         if (state.Equals(TVState.Haunted))
         {
-            idleHands.SetActive(false);
+            creditsCube.SetActive(false);
             hauntedHands.SetActive(true);
             animator.ResetTrigger("Idle");
             animator.ResetTrigger("Awake");
@@ -237,7 +243,7 @@ public class TVScreenController : MonoBehaviour
         }
         if (state.Equals(TVState.Off))
         {
-            idleHands.SetActive(false);
+            creditsCube.SetActive(true);
             hauntedHands.SetActive(false);
             animator.ResetTrigger("Idle");
             animator.ResetTrigger("Awake");
@@ -245,12 +251,13 @@ public class TVScreenController : MonoBehaviour
             animator.ResetTrigger("Grab");
 
             animator.SetTrigger("Stop");
+           
 
-
+            //animator.SetTrigger("Idle");
         }
         if (state.Equals(TVState.Awake))
         {
-            idleHands.SetActive(false);
+            creditsCube.SetActive(false);
             hauntedHands.SetActive(false);
             animator.ResetTrigger("Idle");
             animator.ResetTrigger("Stop");
@@ -262,7 +269,7 @@ public class TVScreenController : MonoBehaviour
 
         if (GameManager.Instance.State.Equals(GameState.GameOver)) // grab changed the gamestate -> game ended before TV was switched off -> game lost
         {
-            idleHands.SetActive(false);
+            creditsCube.SetActive(false);
             hauntedHands.SetActive(true);
 
             animator.ResetTrigger("Idle");
@@ -272,7 +279,27 @@ public class TVScreenController : MonoBehaviour
 
             animator.SetTrigger("Grab");
         }
+        if (GameManager.Instance.State.Equals(GameState.GameCompleted))
+        {
+            if (!isShowingCredits)
+            {
+                creditsTimer = 0;
+                isShowingCredits = true;
+                creditsCube.SetActive(true);
+                animator.ResetTrigger("Idle");
+                animator.ResetTrigger("Awake");
+                animator.ResetTrigger("Haunted");
+                animator.ResetTrigger("Grab");
+                animator.ResetTrigger("Stop");
 
+                animator.SetTrigger("Credits");
+            }
+            creditsTimer += Time.deltaTime;
+            if (creditsTimer > creditsPeriod)
+            {
+                creditsCube.SetActive(false);
+            }
+        }
     }
 
     // Update is called once per frame
